@@ -1,5 +1,6 @@
 <?php
 /* https://www.tutorialspoint.com/php/php_mysql_login.htm */
+   include("includes/bg.php");
    include("includes/connection.php");
    session_start();
    
@@ -12,7 +13,7 @@
       $sql = "SELECT * FROM admin WHERE username = '$myusername' and passcode = '$mypassword'";
       $result = mysqli_query($db,$sql);
       /* https://www.php.net/manual/en/mysqli-result.fetch-array.php */
-      //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       //$active = $row['active'];
       
       $count = mysqli_num_rows($result);
@@ -21,7 +22,7 @@
 		
       if($count == 1) {
          //session_register("myusername");
-         //$_SESSION['login_user'] = $myusername;
+         $_SESSION['login_user'] = $myusername;
          header("location: dashboard.php");
       }else {
          //$error = "Your Login Name or Password is invalid";
