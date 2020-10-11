@@ -3,6 +3,7 @@
    include("includes/bg.php");
    include("includes/connection.php");
    session_start();
+   $error ="";
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       // username and password sent from form 
@@ -26,7 +27,7 @@
          header("location: dashboard.php");
       }else {
          //$error = "Your Login Name or Password is invalid";
-         echo '<script type="text/javascript">alert("Invalid Username or Password! Try Again");</script>';
+         $error = "Invalid Login ID or PW";
       }
    }
 ?>
@@ -54,7 +55,7 @@
 <body>
     <?php //include 'header.php';?>
     <div class="container h-100">
-		<div class="d-flex justify-content-center h-100">
+      <div class="d-flex justify-content-center h-100">
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
 					<div class="brand_logo_container">
@@ -81,12 +82,12 @@
 								<label class="custom-control-label" for="customControlInline">Remember me</label>
 							</div>
 						</div>-->
-							<div class="d-flex justify-content-center mt-5 login_container">
-				 	<input type="submit" value="Login" name="submit" class="btn login_btn">
-				   </div>
+						<div class="d-flex justify-content-center mt-5 login_container">
+				 	      <input type="submit" value="Login" name="submit" class="btn login_btn">
+				      </div>
 					</form>
 				</div>
-        <!--<div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php //echo $error; ?></div>-->
+            <div style = "font-size:15px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
 				<!-- <div class="mt-4">
 					<div class="d-flex justify-content-center links">
 						Don't have an account? <a href="#" class="ml-2">Sign Up</a>
@@ -97,7 +98,7 @@
 				</div> -->
 			</div>
 		</div>
-	</div>
-    <?php include 'includes/footer.php';?>
+   </div>
+   <?php include("includes/footer.php"); ?>
 </body>
 </html>
