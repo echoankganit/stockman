@@ -13,7 +13,7 @@ body {
 }
 </style>
 <title>Stock Management System</title>
-<SCRIPT LANGUAGE="JavaScript">
+<!-- <SCRIPT LANGUAGE="JavaScript">
 var message="Sorry,Right click disabled";
 ///////////////////////////////////
 function clickIE() {if (document.all) {alert(message);return false;}}

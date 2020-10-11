@@ -1,89 +1,189 @@
 /* Sticky footer styles
 -------------------------------------------------- */
 body, html {
-		margin: 0;
-		padding: 0;
-	  height: 100%;
-    position: relative;
-    min-height: 100%;
-  }
-  body {
-    margin-bottom: 60px; /* Margin bottom by footer height */
-  }
-  .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px; /* Set the fixed height of the footer here */
-    line-height: 60px; /* Vertically center the text there */
-    background-color: #f5f5f5;
-  }
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	position: relative;
+	min-height: 100%;
+}
+body {
+	margin-bottom: 60px; /* Margin bottom by footer height */
+}
+.footer {
+	/*position: absolute;
+	bottom: 0;*/
+	width: 100%;
+	height: 60px; /* Set the fixed height of the footer here */
+	line-height: 60px; /* Vertically center the text there */
+	background-color: #f5f5f5;
+}
 
-  	/* Coded with love by Mutiullah Samim */
-    
-    /*whole form with pic*/
-		.user_card {
-			height: 350px;
-			width: 350px;
-			margin-top: auto;
-			margin-bottom: auto;
-			background: #ffe60270;
-			position: relative;
-			display: flex;
-			justify-content: center;
-			flex-direction: column;
-			padding: 10px;
-			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-			border-radius: 5px;
+/* Coded with love by Mutiullah Samim */
 
-    }
+/*whole form with pic*/
+.user_card {
+	height: 350px;
+	width: 350px;
+	margin-top: auto;
+	margin-bottom: auto;
+	background: #ffe60270;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	padding: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 5px;
+}
 
-    /*for pic container*/
-		.brand_logo_container {
-			position: absolute;
-			height: 170px;
-			width: 170px;
-			top: -75px;
-			border-radius: 50%;
-			padding: 10px;
-			text-align: center;
-    }
-    
-    /*for pic only*/
-		.brand_logo {
-			height: 150px;
-			width: 150px;
-			/*border-radius: 50%;
-			border: 2px solid white;*/
-		}
-		.form_container {
-			margin-top: 100px;
-		}
-		.login_btn {
-			width: 100%;
-			background: #c0392b !important;
-			color: white !important;
-		}
-		.login_btn:focus {
-			box-shadow: none !important;
-			outline: 0px !important;
-		}
-		.login_container {
-			padding: 0 2rem;
-		}
-		.input-group-text {
-			background: #c0392b !important;
-			color: white !important;
-			border: 0 !important;
-			border-radius: 0.25rem 0 0 0.25rem !important;
-		}
-		.input_user,
-		.input_pass:focus {
-			box-shadow: none !important;
-			outline: 0px !important;
-		}
-		.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
-			background-color: #c0392b !important;
-		}
+/*for pic container*/
+.brand_logo_container {
+	position: absolute;
+	height: 170px;
+	width: 170px;
+	top: -75px;
+	border-radius: 50%;
+	padding: 10px;
+	text-align: center;
+}
+
+/*for pic only*/
+.brand_logo {
+	height: 150px;
+	width: 150px;
+	/*border-radius: 50%;
+	border: 2px solid white;*/
+}
+.form_container {
+	margin-top: 100px;
+}
+.login_btn {
+	width: 100%;
+	background: #c0392b !important;
+	color: white !important;
+}
+.login_btn:focus {
+	box-shadow: none !important;
+	outline: 0px !important;
+}
+.login_container {
+	padding: 0 2rem;
+}
+.input-group-text {
+	background: #c0392b !important;
+	color: white !important;
+	border: 0 !important;
+	border-radius: 0.25rem 0 0 0.25rem !important;
+}
+.input_user,
+.input_pass:focus {
+	box-shadow: none !important;
+	outline: 0px !important;
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+	background-color: #c0392b !important;
+}
+
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+
+/* DEMO GENERAL ============================== */
+.hover {
+	overflow: hidden;
+	position: relative;
+	padding-bottom: 60%;
+  }
+  
+  .hover-overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 90;
+	transition: all 0.4s;
+  }
+  
+  .hover img {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition: all 0.3s;
+  }
+  
+  .hover-content {
+	position: relative;
+	z-index: 99;
+  }
+  
+  
+/* DEMO 3 ============================== */
+.hover-3::after {
+	content: '';
+	width: calc(100% - 3rem);
+	height: calc(100% - 3rem);
+	border: 1px solid #fff;
+	position: absolute;
+	top: 1.5rem;
+	left: 1.5rem;
+	z-index: 90;
+	transition: all 0.3s;
+	transform: scale(1.1);
+	opacity: 0;
+	display: block;
+	opacity: 0;
+  }
+  
+  .hover-3-content {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 100%;
+	transform: translateY(-50%);
+	text-align: center;
+	z-index: 99;
+  }
+  
+  .hover-3-description {
+	opacity: 0;
+	transform: scale(1.3);
+	transition: all 0.3s;
+  }
+  
+  .hover-3 img {
+	width: 110%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  }
+  
+  .hover-3 .hover-overlay {
+	background: rgba(0, 0, 0, 0.2);
+  }
+  
+  .hover-3:hover img {
+	width: 100%;
+  }
+  
+  .hover-3:hover::after {
+	opacity: 1;
+	transform: none;
+  }
+  
+  .hover-3:hover .hover-3-description {
+	opacity: 1;
+	transform: none;
+  }
+  
+  .hover-3:hover .hover-overlay {
+	background: rgba(0, 0, 0, 0.8);
+  }
