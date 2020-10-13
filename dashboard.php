@@ -22,34 +22,45 @@
     <script src="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>
     <title>Welcome</title>
 </head>
-<body>
-    <!-- DEMO 3 -->
-    <!-- https://bootstrapious.com/p/bootstrap-image-hover -->
-    <div class="container py-5">
-        <p class="h1">Please choose one option: </p>
-        <div class="row">
-            <!-- DEMO 3 Item-->
-            <div class="col-lg-6 mb-3 mb-lg-0">
-                <div class="hover hover-3 text-white rounded"><img src="https://res.cloudinary.com/mhmd/image/upload/v1570786274/hoverSet-5_ifnajv.jpg" alt="">
-                    <div class="hover-overlay"></div>
-                    <div class="hover-3-content px-5 py-4">
-                        <h3 class="hover-3-title text-uppercase font-weight-bold mb-1"><span class="font-weight-light"><a href="rsm.php">Sri Sri </span>Foods</a></h3>
-                        <!-- <p class="hover-3-description small text-uppercase mb-0">Lorem ipsum dolor sit amet, consectetur <br>adipisicing elit.</p>-->
-                    </div>
+<body class="d-flex flex-column">
+    <div class="flex-grow-1 flex-shrink-0">
+        <!-- DEMO 3 -->
+        <!-- https://bootstrapious.com/p/bootstrap-image-hover -->
+        <div class="container py-5">
+            <p class="h1">Please choose one option: </p>
+            <div class="row">
+                <!-- DEMO 3 Item-->
+                <div class="col-lg-6 mb-3 mb-lg-0">
+                    <form action="contents.php" method="GET">
+                        <div class="hover hover-3 text-white rounded"><img src="https://res.cloudinary.com/mhmd/image/upload/v1570786274/hoverSet-5_ifnajv.jpg" alt="">
+                            <div class="hover-overlay"></div>
+                            <div class="hover-3-content px-5 py-4">
+                                <!--<h3 class="hover-3-title text-uppercase font-weight-bold mb-1"><span class="font-weight-light"><a href="contents.php">Sri Sri </span>Foods</a></h3>-->
+                                <input type="text" name="comp" value="ssf" hidden>
+                                <button type="submit" name="company" class="btn btn-lg btn-primary">Sri Sri Foods</button>
+                                <!-- <p class="hover-3-description small text-uppercase mb-0">Lorem ipsum dolor sit amet, consectetur <br>adipisicing elit.</p>-->
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
-      <!-- DEMO 3 Item    -->
-            <div class="col-lg-6">
-                <div class="hover hover-3 text-white rounded"><img src="https://res.cloudinary.com/mhmd/image/upload/v1570786268/hoverSet-6_hkumk8.jpg" alt="">
-                    <div class="hover-overlay"></div>
-                    <div class="hover-3-content px-5 py-4">
-                        <h3 class="hover-3-title text-uppercase font-weight-bold mb-1"><span class="font-weight-light">Shree Vardhman </span>Foods</h3>
-                        <!-- <p class="hover-3-description small text-uppercase mb-0">Lorem ipsum dolor sit amet, consectetur <br>adipisicing elit.</p>-->
-                    </div>
+            
+        <!-- DEMO 3 Item    -->
+                <div class="col-lg-6">
+                    <form action="contents.php" method="GET">
+                        <div class="hover hover-3 text-white rounded"><img src="https://res.cloudinary.com/mhmd/image/upload/v1570786268/hoverSet-6_hkumk8.jpg" alt="">
+                            <div class="hover-overlay"></div>
+                            <div class="hover-3-content px-5 py-4">
+                                <!--<h3 class="hover-3-title text-uppercase font-weight-bold mb-1"><span class="font-weight-light"><a href="contents.php">Sri Sri </span>Foods</a></h3>-->
+                                <input type="text" name="comp" value="svf" hidden>
+                                <button type="submit" name="company1" class="btn btn-lg btn-primary">Shree Vardhman Foods</button>
+                                <!-- <p class="hover-3-description small text-uppercase mb-0">Lorem ipsum dolor sit amet,   consectetur <br>adipisicing elit.</p>-->
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-  </div>
-  <?php include("includes/footer.php");?>
+    </div>
+    <?php include("includes/footer.php");?>
 </body> 
 </html>
