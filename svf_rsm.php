@@ -94,7 +94,8 @@
                 </div>
                 <div class="d-flex justify-content-center mt-3">
                     <button type="submit" class="btn btn-primary mr-3" name="rsmsubmit">Submit</button>
-                    <button type="cancel" onclick='window.location="dashboard.php";return false;' class="btn btn-secondary mr-3">Cancel</button>
+                    <input type="button" class="btn btn-danger mr-3" value="Back" onclick="history.back(-1)" />
+                    <button type="home" onclick='window.location="dashboard.php";return false;' class="btn btn-secondary mr-3">Home</button>
                     <button type="submit" class="btn btn-primary" name="available">Available</button>
                 </div>
             </form>

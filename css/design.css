@@ -6,6 +6,21 @@ body {
   height: 100%;
 }
 
+.btn-huge{
+	padding:20px;
+    /*padding-bottom:20px;*/
+}
+
+.content-col-3 {
+    /*-ms-flex: 0 0 25%;*/
+	flex: 0 0 25%;
+    /*max-width: 25%;*/
+}
+
+.rounded-circle {
+    border-radius: 10%!important;
+}
+
 /* Coded with love by Mutiullah Samim */
 /*whole form with pic*/
 .user_card {
