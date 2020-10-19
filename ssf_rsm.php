@@ -5,12 +5,11 @@
     //include('includes/session.php');
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         $ricetype = mysqli_real_escape_string($db, $_POST['ricetype']);
-        $ricequality = mysqli_real_escape_string($db, $_POST['ricequality']);
         $riceweight = mysqli_real_escape_string($db, $_POST['riceweight']);
         $units = mysqli_real_escape_string($db, $_POST['units']);
         $rsmentry = mysqli_real_escape_string($db, $_POST['rsmentry']);
         if (isset($_POST['rsmsubmit'])){
-            $sql = "INSERT INTO `ssf_rsm` (`ricetype`, `ricequality`, `riceweight`, `units`, `rsmentry`) VALUES ('$ricetype','$ricequality','$riceweight','$units','$rsmentry')";
+            $sql = "INSERT INTO `ssf_rsm` (`ricetype`, `riceweight`, `units`, `rsmentry`) VALUES ('$ricetype','$riceweight','$units','$rsmentry')";
             $result = mysqli_query($db,$sql);
             $sql1 = "SELECT * FROM `ssf_rsm` ORDER BY `entryrno` DESC LIMIT 1";
             /*To get the greatest id:
@@ -24,7 +23,7 @@
             $totalweight=$riceweight*$units;
             if($result){
                 echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                (Entry No.: '.$row1['entryrno'].') <strong>'.$riceweight.' KG x '.$units.' units = '.$totalweight.' KG '.$rsmentry.'</strong> Under '.$ricetype.' '.$ricequality.'
+                (Entry No.: '.$row1['entryrno'].') <strong>'.$riceweight.' KG x '.$units.' units = '.$totalweight.' KG '.$rsmentry.'</strong> Under '.$ricetype.'
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -68,14 +67,14 @@
                     <option value="E">E</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label for="ricequality">Quality</label>
                     <select class="form-control" id="qualitytype1" name="ricequality">
                     <option value="Quality A">Quality A</option>
                     <option value="Quality B">Quality B</option>
                     <option value="Basmati">Basmati</option>
                     </select>
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label for="riceweight">weight</label>
                     <select class="form-control" id="weight1" name="riceweight">
@@ -85,6 +84,7 @@
                     <option value="15">15 KG</option>
                     <option value="20">20 KG</option>
                     <option value="50">50 KG</option>
+                    <option value="60">60 KG</option>
                     </select>
                 </div>
                 <div class="form-row">
@@ -118,8 +118,8 @@
         </div>
         <?php
         if (isset($_POST['available'])){
-            $sql2 = "SELECT SUM(riceweight*units) AS sumrqi FROM `ssf_rsm` WHERE `ricetype`='$ricetype' AND `ricequality`='$ricequality' AND `riceweight`='$riceweight' AND `rsmentry`='in'";
-            $sql3 = "SELECT SUM(riceweight*units) AS sumrqo FROM `ssf_rsm` WHERE `ricetype`='$ricetype' AND `ricequality`='$ricequality' AND `riceweight`='$riceweight' AND `rsmentry`='out'";
+            $sql2 = "SELECT SUM(riceweight*units) AS sumrqi FROM `ssf_rsm` WHERE `ricetype`='$ricetype' AND `riceweight`='$riceweight' AND `rsmentry`='in'";
+            $sql3 = "SELECT SUM(riceweight*units) AS sumrqo FROM `ssf_rsm` WHERE `ricetype`='$ricetype' AND `riceweight`='$riceweight' AND `rsmentry`='out'";
             $result2 = mysqli_query($db,$sql2);
             $result3 = mysqli_query($db,$sql3);
             $row2 = mysqli_fetch_assoc($result2); 
@@ -133,17 +133,55 @@
                 <span aria-hidden="true">&times;</span>
             </button>';
             if($rowin==0)
-                echo $ricetype." ".$ricequality." ".$riceweight." KG in = 0 KG Total <br>";
+                echo $ricetype." ".$riceweight." KG in = 0 KG Total <br>";
             else
-                echo $ricetype." ".$ricequality." ".$riceweight." KG in = ".$rowin." KG Total and have ".$rowin/$riceweight." bag(s). <br>";
+                echo $ricetype." ".$riceweight." KG in = ".$rowin." KG Total and have ".$rowin/$riceweight." bag(s). <br>";
             if($rowout==0)
-                echo $ricetype." ".$ricequality." ".$riceweight." KG out = 0 KG Total <br>";
+                echo $ricetype." ".$riceweight." KG out = 0 KG Total <br>";
             else
-                echo $ricetype." ".$ricequality." ".$riceweight." KG out = ".$rowout." KG Total and have ".$rowout/$riceweight." bag(s). <br>";
+                echo $ricetype." ".$riceweight." KG out = ".$rowout." KG Total and have ".$rowout/$riceweight." bag(s). <br>";
             echo "<strong>Available Stock = ".$rowtotal." KG Total and have ".$rowtotal/$riceweight." bag(s).</strong>";
             echo '</div>';
         }
         ?>
+    </div>
+    <div class="row bg-secondary">
+        <div class="col">
+            <form method="GET" action="ricestockview.php">
+                <div class="form-group">
+                    <label for="ricetypeview">Rice Type</label>
+                    <select class="form-control" id="ricetypeview" name="ricet">
+                    <option value="Loose">Loose</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" name="ricetypeview">View</button>
+            </form>
+        </div>
+        <div class="col">
+            <form method="GET" action="ricestockview.php">
+                <div class="form-group">
+                    <label for="riceweight">weight</label>
+                    <select class="form-control" id="riceweightview" name="ricew">
+                    <option value="1">1 KG</option>
+                    <option value="5">5 KG</option>
+                    <option value="10">10 KG</option>
+                    <option value="15">15 KG</option>
+                    <option value="20">20 KG</option>
+                    <option value="50">50 KG</option>
+                    <option value="60">60 KG</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" name="riceweightview">View</button>
+            </form>
+        </div>
+        <div class="col">
+        3
+        </div>
     </div>
     <?php include("includes/footer.php");?>
     <script>

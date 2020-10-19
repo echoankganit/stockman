@@ -41,6 +41,9 @@
                                 echo '<form action="ssf_cashbook.php" method="GET">
                                     <button type="submit" name="cashbook" class="btn btn-lg btn-success">Cash Book</button>
                                 </form>';
+                                echo '<form action="ssf_party.php" method="GET">
+                                    <button type="submit" name="party" class="btn btn-lg btn-success">Party</button>
+                                </form>';
                             }
                             else{
                                 echo '<form action="svf_rsm.php" method="GET">
@@ -48,6 +51,9 @@
                                 </form>';
                                 echo '<form action="svf_cashbook.php" method="GET">
                                     <button type="submit" name="cashbook" class="btn btn-lg btn-success">Cah Book</button>
+                                </form>';
+                                echo '<form action="svf_party.php" method="GET">
+                                    <button type="submit" name="party" class="btn btn-lg btn-success">Party</button>
                                 </form>';
                             }
                         ?>
