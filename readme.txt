@@ -55,3 +55,13 @@ C) display details
             echo '</div>';
         }
         ?>
+
+         <script>
+        //bind the event with button click.....
+        $("rsmsubmit").on("click", function() {
+    // ReferchPage() will be called after 3 seconds of button click.
+            <?php
+            header("refresh: 3;");
+            ?>
+        });
+    </script>

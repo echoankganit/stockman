@@ -1,33 +1,77 @@
 <?php
     //include("includes\header.php");
     include("includes/bg.php");
-    include("includes\connection.php");
+    include("includes/connection.php");
     //include('includes/session.php');
+    function partyname(){
+        global $db;
+        $pname = array();
+        $resulta = mysqli_query($db,"SELECT * FROM `ssf_party`");
+        while ($rowa = mysqli_fetch_array($resulta, MYSQLI_ASSOC)) {
+            $pname[] = $rowa['pname'];
+            // OR 
+            // $array1[] = $row[1];
+        }
+        return $pname;
+    }
+    $pname = partyname();
+
+    function partycategory(){
+        global $db;
+        $pcategory = array();
+        $resulta = mysqli_query($db,"SELECT DISTINCT(pcategory) AS `pcategory` FROM `ssf_party` GROUP BY `pname`, `pcategory`");
+        while ($rowa = mysqli_fetch_array($resulta, MYSQLI_ASSOC)) {
+            $pcategory[] = $rowa['pcategory'];
+            // OR 
+            // $array1[] = $row[1];
+        }
+        return $pcategory;
+    }
+    $pcategory = partycategory();
+    //implode(',',$pname);
+    /*
+    //Loop through the elements.
+    echo implode(', ', $pname);
+    foreach($pname as $value){
+        //Print the element out.
+        echo $value, '<br>';
+    }
+    */  
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $ricetype = mysqli_real_escape_string($db, $_POST['ricetype']);
-        $riceweight = mysqli_real_escape_string($db, $_POST['riceweight']);
-        $units = mysqli_real_escape_string($db, $_POST['units']);
-        $rsmentry = mysqli_real_escape_string($db, $_POST['rsmentry']);
-        if (isset($_POST['rsmsubmit'])){
-            $sql = "INSERT INTO `ssf_rsm` (`ricetype`, `riceweight`, `units`, `rsmentry`) VALUES ('$ricetype','$riceweight','$units','$rsmentry')";
-            $result = mysqli_query($db,$sql);
-            $sql1 = "SELECT * FROM `ssf_rsm` ORDER BY `entryrno` DESC LIMIT 1";
-            /*To get the greatest id:
-            SELECT MAX(id) FROM mytable
-            Then to get the row:
-            SELECT * FROM mytable WHERE id = ???*/
-            /*Or, you could do it all in one query:
-            SELECT * FROM mytable ORDER BY id DESC LIMIT 1*/
-            $result1 = mysqli_query($db,$sql1);
-            $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
-            $totalweight=$riceweight*$units;
-            if($result){
-                echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                (Entry No.: '.$row1['entryrno'].') <strong>'.$riceweight.' KG x '.$units.' units = '.$totalweight.' KG '.$rsmentry.'</strong> Under '.$ricetype.'
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>';
+            $ricetype = mysqli_real_escape_string($db, $_POST['ricetype']);
+            $riceweight = mysqli_real_escape_string($db, $_POST['riceweight']);
+            $units = mysqli_real_escape_string($db, $_POST['units']);
+            $rsmentry = mysqli_real_escape_string($db, $_POST['rsmentry']);
+            $pcategory = mysqli_real_escape_string($db, $_POST['pcategory']);
+            $pname = partyname();
+            if($pcategory!='Select'){
+            $pname = mysqli_real_escape_string($db, $_POST['pname']);
+
+            if (isset($_POST['rsmsubmit'])){
+                $sql = "INSERT INTO `ssf_rsm` (`ricetype`, `riceweight`, `units`, `rsmentry`, `pname`, `pcategory`) VALUES ('$ricetype','$riceweight','$units','$rsmentry','$pname','$pcategory')";
+                $pname = partyname();
+                $pcategory = partycategory();
+                $result = mysqli_query($db,$sql);
+                $sql1 = "SELECT * FROM `ssf_rsm` ORDER BY `entryrno` DESC LIMIT 1";
+
+                //implode(',',$pname);
+                /*To get the greatest id:
+                SELECT MAX(id) FROM mytable
+                Then to get the row:
+                SELECT * FROM mytable WHERE id = ???*/
+                /*Or, you could do it all in one query:
+                SELECT * FROM mytable ORDER BY id DESC LIMIT 1*/
+                $result1 = mysqli_query($db,$sql1);
+                $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
+                $totalweight=$riceweight*$units;
+                if($result){
+                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    (Entry No.: '.$row1['entryrno'].') <strong>'.$riceweight.' KG x '.$units.' units = '.$totalweight.' KG '.$rsmentry.'</strong> Under '.$ricetype.' to '.$row1['pname'].'
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+                }
             }
         }
     }
@@ -41,12 +85,43 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/design.css">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/design.css">
+    <!--https://www.tutorialrepublic.com/faq/populate-state-dropdown-based-on-selection-in-country-dropdown-using-jquery.php#:~:text=Answer%3A%20Use%20the%20jQuery%20ajax,while%20filling%20the%20registration%20form.-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("select.partycategory").change(function(){
+                var selectedPcategory = $(".partycategory option:selected").val();
+                $.ajax({
+                    type: "POST",
+                    url: "process-request.php",
+                    data: { partycategory : selectedPcategory } 
+                }).done(function(data){
+                    $("#partyname").html(data);
+                });
+            });
+        });
+    </script>
+    <!--<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("select.country").change(function(){
+            var selectedCountry = $(".country option:selected").val();
+            $.ajax({
+                type: "POST",
+                url: "process-request.php",
+                data: { country : selectedCountry } 
+            }).done(function(data){
+                $("#response").html(data);
+            });
+        });
+    });
+    </script>-->
     <title>Rice Stock Management - Sri Sri Foods</title>
 </head>
 <body class="d-flex flex-column">
@@ -108,8 +183,46 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="pcategory">Party Catgory</label>
+                    <select class="partycategory form-control" id="partycategory" name="pcategory">
+                    <option value='Select'>Select</option>;
+                    <?php foreach($pcategory as $item){
+                        echo "<option value='$item'>$item</option>";
+                    }?>
+                    </select>
+                </div>
+                <!--<div class="form-group">
+                    <label for="pname">Party Name</label>
+                    <select class="partyname form-control" id="partyname" name="pname">
+                    <?php foreach($pname as $item){
+                        //echo "<option value='$item'>$item</option>";
+                    }?>
+                    </select>
+                </div>-->
+                <!--<div>
+                        <table>
+                        <tr>
+                            <td>
+                                <label>Country:</label>
+                                <select class="partycategory">
+                                    <option>Select</option>
+                                    <option value="Bank Accounts">United States</option>
+                                    <option value="india">India</option>
+                                    <option value="uk">United Kingdom</option>
+                                </select>
+                            </td>
+                            <td id="response">-->
+                                <!--Response will be inserted here
+                            </td>
+                        </tr>
+                    </table>
+                </div>-->
+                <div id="partyname">
+
+                </div>
                 <div class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-primary mr-3" name="rsmsubmit">Submit</button>
+                    <button type="submit" class="btn btn-primary mr-3" name="rsmsubmit" id="rsmsubmit">Submit</button>
                     <input type="button" class="btn btn-danger mr-3" value="Back" onclick="history.back(-1)" />
                     <button type="home" onclick='window.location="dashboard.php";return false;' class="btn btn-secondary mr-3">Home</button>
                     <button type="submit" class="btn btn-primary" name="available">Available</button>
@@ -118,8 +231,10 @@
         </div>
         <?php
         if (isset($_POST['available'])){
+            //$pname = partyname();
             $sql2 = "SELECT SUM(riceweight*units) AS sumrqi FROM `ssf_rsm` WHERE `ricetype`='$ricetype' AND `riceweight`='$riceweight' AND `rsmentry`='in'";
             $sql3 = "SELECT SUM(riceweight*units) AS sumrqo FROM `ssf_rsm` WHERE `ricetype`='$ricetype' AND `riceweight`='$riceweight' AND `rsmentry`='out'";
+
             $result2 = mysqli_query($db,$sql2);
             $result3 = mysqli_query($db,$sql3);
             $row2 = mysqli_fetch_assoc($result2); 
@@ -127,6 +242,13 @@
             $rowin = $row2['sumrqi'];
             $rowout = $row3['sumrqo'];
             $rowtotal = $rowin-$rowout;
+            echo'<div class="container">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>';
+            echo 'Please Refresh this page before making new entry.';
+            echo '</div></div>';
             echo'<div class="container">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">

@@ -44,6 +44,12 @@
                                 echo '<form action="ssf_party.php" method="GET">
                                     <button type="submit" name="party" class="btn btn-lg btn-success">Party</button>
                                 </form>';
+                                echo '<form action="ssf_employee.php" method="GET">
+                                    <button type="submit" name="employee" class="btn btn-lg btn-success">Employee Registration</button>
+                                </form>';
+                                echo '<form action="ssf_attendance.php" method="GET">
+                                    <button type="submit" name="attendance" class="btn btn-lg btn-success">Employee Attendance</button>
+                                </form>';
                             }
                             else{
                                 echo '<form action="svf_rsm.php" method="GET">
@@ -55,12 +61,15 @@
                                 echo '<form action="svf_party.php" method="GET">
                                     <button type="submit" name="party" class="btn btn-lg btn-success">Party</button>
                                 </form>';
+                                echo '<form action="svf_employee.php" method="GET">
+                                    <button type="submit" name="employee" class="btn btn-lg btn-success">Employee Registration</button>
+                                </form>';
+                                echo '<form action="svf_attendance.php" method="GET">
+                                    <button type="submit" name="attendance" class="btn btn-lg btn-success">Employee Attendance</button>
+                                </form>';
                             }
                         ?>
                         <button type="button" class="btn btn-lg btn-dark mb-2" disabled>Product Management</button>
-                        <button type="button" class="btn btn-lg btn-dark mb-2" disabled>Button 3</button>
-                        <button type="button" class="btn btn-lg btn-dark mb-2" disabled>Button 4</button>
-                        <button type="button" class="btn btn-lg btn-dark mb-2" disabled>Button 5</button>
                     </div>
                 </div>
                 <div class="col content-col-3">
