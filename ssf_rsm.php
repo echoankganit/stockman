@@ -2,49 +2,20 @@
     //include("includes\header.php");
     include("includes/bg.php");
     include("includes/connection.php");
+    include("includes\allfunctions.php");
     //include('includes/session.php');
-    function partyname(){
-        global $db;
-        $pname = array();
-        $resulta = mysqli_query($db,"SELECT * FROM `ssf_party`");
-        while ($rowa = mysqli_fetch_array($resulta, MYSQLI_ASSOC)) {
-            $pname[] = $rowa['pname'];
-            // OR 
-            // $array1[] = $row[1];
-        }
-        return $pname;
-    }
+    
     $pname = partyname();
-
-    function partycategory(){
-        global $db;
-        $pcategory = array();
-        $resulta = mysqli_query($db,"SELECT DISTINCT(pcategory) AS `pcategory` FROM `ssf_party` GROUP BY `pname`, `pcategory`");
-        while ($rowa = mysqli_fetch_array($resulta, MYSQLI_ASSOC)) {
-            $pcategory[] = $rowa['pcategory'];
-            // OR 
-            // $array1[] = $row[1];
-        }
-        return $pcategory;
-    }
     $pcategory = partycategory();
-    //implode(',',$pname);
-    /*
-    //Loop through the elements.
-    echo implode(', ', $pname);
-    foreach($pname as $value){
-        //Print the element out.
-        echo $value, '<br>';
-    }
-    */  
+    
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $ricetype = mysqli_real_escape_string($db, $_POST['ricetype']);
-            $riceweight = mysqli_real_escape_string($db, $_POST['riceweight']);
-            $units = mysqli_real_escape_string($db, $_POST['units']);
-            $rsmentry = mysqli_real_escape_string($db, $_POST['rsmentry']);
-            $pcategory = mysqli_real_escape_string($db, $_POST['pcategory']);
-            $pname = partyname();
-            if($pcategory!='Select'){
+        $ricetype = mysqli_real_escape_string($db, $_POST['ricetype']);
+        $riceweight = mysqli_real_escape_string($db, $_POST['riceweight']);
+        $units = mysqli_real_escape_string($db, $_POST['units']);
+        $rsmentry = mysqli_real_escape_string($db, $_POST['rsmentry']);
+        $pcategory = mysqli_real_escape_string($db, $_POST['pcategory']);
+        $pname = partyname();
+        if($pcategory!='Select'){
             $pname = mysqli_real_escape_string($db, $_POST['pname']);
 
             if (isset($_POST['rsmsubmit'])){
@@ -73,6 +44,10 @@
                 </div>';
                 }
             }
+        }
+        else {
+            echo 'Choose Party Category then again submit the form. (This page will refresh automatically in 3 seconds)';
+            header("refresh: 3");
         }
     }
 ?>

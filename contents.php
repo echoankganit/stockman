@@ -33,52 +33,43 @@
             <div class="row justify-content-md-center">
                 <div class="col content-col-3">
                     <div class="btn-group-vertical">
-                        <?php
-                            if($comp=='ssf'){
-                                echo '<form action="ssf_rsm.php" method="GET">
-                                    <button type="submit" name="rsm" class="btn btn-lg btn-primary">Rice Stock Management</button>
-                                </form>';
-                                echo '<form action="ssf_cashbook.php" method="GET">
-                                    <button type="submit" name="cashbook" class="btn btn-lg btn-success">Cash Book</button>
-                                </form>';
-                                echo '<form action="ssf_party.php" method="GET">
-                                    <button type="submit" name="party" class="btn btn-lg btn-success">Party</button>
-                                </form>';
-                                echo '<form action="ssf_employee.php" method="GET">
-                                    <button type="submit" name="employee" class="btn btn-lg btn-success">Employee Registration</button>
-                                </form>';
-                                echo '<form action="ssf_attendance.php" method="GET">
-                                    <button type="submit" name="attendance" class="btn btn-lg btn-success">Employee Attendance</button>
-                                </form>';
-                            }
-                            else{
-                                echo '<form action="svf_rsm.php" method="GET">
-                                    <button type="submit" name="rsm" class="btn btn-lg btn-primary">Rice Stock Management</button>
-                                </form>';
-                                echo '<form action="svf_cashbook.php" method="GET">
-                                    <button type="submit" name="cashbook" class="btn btn-lg btn-success">Cah Book</button>
-                                </form>';
-                                echo '<form action="svf_party.php" method="GET">
-                                    <button type="submit" name="party" class="btn btn-lg btn-success">Party</button>
-                                </form>';
-                                echo '<form action="svf_employee.php" method="GET">
-                                    <button type="submit" name="employee" class="btn btn-lg btn-success">Employee Registration</button>
-                                </form>';
-                                echo '<form action="svf_attendance.php" method="GET">
-                                    <button type="submit" name="attendance" class="btn btn-lg btn-success">Employee Attendance</button>
-                                </form>';
-                            }
-                        ?>
-                        <button type="button" class="btn btn-lg btn-dark mb-2" disabled>Product Management</button>
+                        <form action="ssf_rsm.php" method="GET">
+                            <button type="submit" name="rsm" class="btn btn-lg btn-primary">Rice Stock Management</button>
+                        </form>
+                        <form action="ssf_attendance.php" method="GET">
+                            <button type="submit" name="attendance" class="btn btn-lg btn-success">Employee Attendance</button>
+                        </form>
+                        <form action="ssf_cashbook.php" method="GET">
+                            <button type="submit" name="cashbook" class="btn btn-lg btn-success">Cash Book</button>
+                        </form>
+                        <form action="ssf_bankbook.php" method="GET">
+                            <button type="submit" name="bankbook" class="btn btn-lg btn-success">Bank Book</button>
+                        </form>
+                        <form action="ssf_khushboo.php" method="GET">
+                            <button type="submit" name="khushboo" class="btn btn-lg btn-success">Khushboo</button>
+                        </form>
+                        <form action="ssf_stitching.php" method="GET">
+                            <button type="submit" name="stitching" class="btn btn-lg btn-success">Stitching</button>
+                        </form>
+                        <form action="ssf_majduri.php" method="GET">
+                            <button type="submit" name="majduri" class="btn btn-lg btn-success">Majduri</button>
+                        </form>
                     </div>
                 </div>
                 <div class="col content-col-3">
                     <div class="btn-group-vertical">
-                        <button type="button" class="btn btn-lg btn-dark mb-2" disabled>Button 3</button>
-                        <button type="button" class="btn btn-lg btn-dark mb-2" disabled>Button 4</button>
-                        <button type="button" class="btn btn-lg btn-dark mb-2" disabled>Button 5</button>
-                        <button type="button" class="btn btn-lg btn-dark mb-2" disabled>Button 3</button>
-                        <button type="button" class="btn btn-lg btn-dark mb-2" disabled>Button 4</button>
+                        <form action="ssf_party.php" method="GET">
+                            <button type="submit" name="party" class="btn btn-lg btn-success">Party Registration</button>
+                        </form>
+                        <form action="ssf_employee.php" method="GET">
+                            <button type="submit" name="employee" class="btn btn-lg btn-success">Employee Registration</button>
+                        </form>
+                        <form action="ssf_contractor.php" method="GET">
+                            <button type="submit" name="contractor" class="btn btn-lg btn-success">Contractor Registration</button>
+                        </form>
+                        <form action="ssf_new_khushboo.php" method="GET">
+                            <button type="submit" name="khushboo" class="btn btn-lg btn-success">Add New Khushboo</button>
+                        </form>
                     </div>
                 </div>
             </div>

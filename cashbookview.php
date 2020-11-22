@@ -52,6 +52,7 @@
             <th scope="col">Amount</th>
             <th scope="col">Received By</th>
             <th scope="col">Location</th>
+            <th scope="col">Download Invoice</th>
             </tr>
         </thead>';
         while($row = mysqli_fetch_assoc($result)){
@@ -64,6 +65,10 @@
                 <td>'.$row['amount'].'</td>
                 <td>'.$row['receivedby'].'</td>
                 <td>'.$row['location'].'</td>
+                <td><form action="/stockman/pages/cashbookinvoice.php" method="GET">
+                    <input name="cbnum" type="text" value="'.$row['cbnum'].'" hidden>
+                    <input type="submit" class="btn btn-primary" value="Generate PDF" name="submit" formtarget="_blank">
+                </form></td>
                 </tr>
             </tbody>';
         }

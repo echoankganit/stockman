@@ -10,7 +10,7 @@
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         $purpose = mysqli_real_escape_string($db, $_POST['purpose']);
         $source = mysqli_real_escape_string($db, $_POST['source']);
-        $cbdate = mysqli_real_escape_string($db, $_POST['cbdate']);
+        $bbdate = mysqli_real_escape_string($db, $_POST['bbdate']);
         $amount = mysqli_real_escape_string($db, $_POST['amount']);
         $receivedby = mysqli_real_escape_string($db, $_POST['receivedby']);
         $amountentry = mysqli_real_escape_string($db, $_POST['amountentry']);
@@ -20,12 +20,12 @@
         if($pcategory!='Select'){
             $pname = mysqli_real_escape_string($db, $_POST['pname']);
 
-            if (isset($_POST['cbsubmit'])){
-                $sql = "INSERT INTO `ssf_cashbook` (`purpose`, `source`, `cbdate`, `amount`, `receivedby`, `amountentry`, `location`, `pcategory`, `pname`) VALUES ('$purpose','$source','$cbdate','$amount','$receivedby','$amountentry','$location','$pcategory','$pname')";
+            if (isset($_POST['bbsubmit'])){
+                $sql = "INSERT INTO `ssf_bankbook` (`purpose`, `source`, `bbdate`, `amount`, `receivedby`, `amountentry`, `location`, `pcategory`, `pname`) VALUES ('$purpose','$source','$bbdate','$amount','$receivedby','$amountentry','$location','$pcategory','$pname')";
                 $pname = partyname();
                 $pcategory = partycategory();
                 $result = mysqli_query($db,$sql);
-                //$sql1 = "SELECT * FROM `ssf_cashbook`";
+                //$sql1 = "SELECT * FROM `ssf_bankbook`";
                 //$result1 = mysqli_query($db,$sql1);
                 //$row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
                 if($result){
@@ -74,12 +74,12 @@
             });
         });
     </script>
-    <title>Cashbook - Sri Sri Foods</title>
+    <title>bankbook - Sri Sri Foods</title>
 </head>
 <body class="d-flex flex-column">
     <div class="flex-grow-1 flex-shrink-0">
         <div class="d-flex justify-content-center">
-            <p class="h1">CASH BOOK</p>
+            <p class="h1">BANK BOOK</p>
         </div>
         <div class="container col-4">
             <form method="POST" action="">
@@ -94,8 +94,8 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="cbdate">Date</label>
-                            <input type="date" class="form-control" id="cbdate" name="cbdate" value="<?php echo date('Y-m-d') ?>">
+                            <label for="bbdate">Date</label>
+                            <input type="date" class="form-control" id="bbdate" name="bbdate" value="<?php echo date('Y-m-d') ?>">
                         </div>
                     </div>
                     <div class="col-6">
@@ -145,7 +145,7 @@
 
                 </div>
                 <div class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-primary mr-3" name="cbsubmit">Submit</button>
+                    <button type="submit" class="btn btn-primary mr-3" name="bbsubmit">Submit</button>
                     <input type="button" class="btn btn-danger mr-3" value="Back" onclick="history.back(-1)" />
                     <button type="home" onclick='window.location="dashboard.php";return false;' class="btn btn-secondary mr-3">Home</button>
                     <!--<button type="submit" class="btn btn-primary" name="available">Available</button>-->
@@ -155,17 +155,16 @@
     </div>
     <div class="row bg-secondary">
         <div class="col">
-            <form method="GET" action="cashbookview.php">
-                <div class="form-group">
-                    <label for="cbmonthview">Date</label>
-                    <input type="date" class="form-control" id="cbmonthview" name="cbdate" value="<?php echo date('Y-m-d') ?>">
-                </div>
-                <button type="submit" class="btn btn-primary" name="cbmonthview">View</button>
+            <form method="GET" action="bankbookview.php">
+            <div class="form-group">
+                <label for="bbmonthview">Date</label>
+                <input type="date" class="form-control" id="bbmonthview" name="bbdate" required>
+            </div>
+            <button type="submit" class="btn btn-primary" name="bbmonthview">View</button>
             </form>
         </div>
         <div class="col">
-            <label for="cbpartyview">Date</label><br>
-            <a class="btn btn-primary" href="/stockman/partycashbankbookview.php" role="button" id="cbpartyview">View by Party</a>
+        2
         </div>
         <div class="col">
         3
