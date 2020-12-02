@@ -1,12 +1,32 @@
 <?php
-echo "<p align=\"right\">".date("l") . "&nbsp;" .date("d/M/Y");
-date_default_timezone_set("Asia/Calcutta");
-echo " ". date("h:i:sa"). "</p>";
+	$page_title = " - Sri Sri Foods | Stock Management System";
+	$comp1 = array("Sri Sri Foods", "../ssf/ssf_contents.php");
+	$comp2 = array("Shree Vardhman Foods", "../svf/svf_contents.php");
+
+	$partyreg = array("Party Registration", "../ssf/ssf_party.php", "Party View", "../ssf/ssf_party_view.php");
+	$empreg = array("Employee Registration", "../ssf/ssf_employee.php", "Employee View", "../ssf/ssf_employee_view.php");
+	$contreg = array("Contractor Registration", "../ssf/ssf_contractor.php", "Contractor View", "../ssf/ssf_contractor_view.php");
+	$khushreg = array("Add New Khushboo", "../ssf/ssf_new_khushboo.php", "Khushboo View", "../ssf/ssf_khushboo_view.php");
+
+	$rsm = array("Rice Stock Management", "../ssf/ssf_rsm.php");
+	$empatt = array("Employee Attendance", "../ssf/ssf_attendance.php");
+	$cashbook = array("Cash Book", "../ssf/ssf_cashbook.php");
+	$bankbook = array("Bank Book", "../ssf/ssf_bankbook.php");
+
+	$khushboo = array("Khushboo", "../ssf/ssf_khushboo.php");
+	$stitching = array("Stitching", "../ssf/ssf_stitching.php");
+	$majdoori = array("Majdoori", "../ssf/ssf_majdoori.php");
+
+	$logout = array("Logout", "../includes/logout.php");
+	$pcategories = array("Bank Accounts","Bank OCC A/c","Bank OD A/c", "Branch / Divisons", "Capital Account", "Cash-in-hand", "Creditors - Brokers");
+
+	//////////
+	$partyview = array("Party View", "../ssf/ssf_party_view.php");
 ?>
 <style type="text/css">
 body {
 	/* Location of the image */
-	background-image:url(images/background/bg.jpg);
+	background-image:url(../images/background/bg.jpg);
 
 	/* Background image is centered vertically and horizontally at all times */
 	background-position: center center;
@@ -27,7 +47,6 @@ body {
 	background-color: #464646;
 }
 </style>
-<title>Stock Management System</title>
 <!-- <SCRIPT LANGUAGE="JavaScript">
 var message="Sorry,Right click disabled";
 ///////////////////////////////////
@@ -40,6 +59,6 @@ if (document.layers)
 else{document.onmouseup=clickNS;document.oncontextmenu=clickIE;}
 
 document.oncontextmenu=new Function("return false")
-// --> 
-</script>
+//
+</script>-->
 

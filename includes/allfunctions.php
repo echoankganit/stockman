@@ -47,4 +47,14 @@ function khush(){
     }
     return $khush;
 }
+
+
+function loginout(){
+    global $db;
+    if($rownum==1){
+        return 0;
+    }
+    else
+        return history.back(-1);
+}
 ?>

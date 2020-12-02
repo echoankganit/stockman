@@ -13,6 +13,4 @@
       header("location: ../index.php");
       die();
    }
-   include("bg.php");
-   include("topnavbar.php");
 ?>
