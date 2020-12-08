@@ -42,8 +42,8 @@
 </head>
 <body class="d-flex flex-column">
     <div class="flex-grow-1 flex-shrink-0">
-        <div class="d-flex justify-content-center">
-            <p class="h1"><?php echo $contreg[0]; ?></p>
+        <div class="d-flex justify-content-center mb-3">
+            <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($contreg[0]); ?></p>
         </div>
         <div class="container col-4">
             <form method="POST" action="">
@@ -55,33 +55,23 @@
                     <label for="contaddress">Contractor Address</label>
                     <input type="text" class="form-control" id="contaddress" name="contaddress" required>
                 </div>
-                <div class="form-group">
-                    <label for="contppp">Price per Piece</label>
-                    <input type="number" class="form-control" id="contppp" name="contppp" min=0 required>
-                </div>
-                <div class="form-group">
-                    <label for="contdate">Date of Registration</label>
-                    <input type="date" class="form-control" id="contdate" name="contdate" value="<?php echo date('Y-m-d') ?>" required>
+                <div class="form-row">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label for="contppp">Price per Piece</label>
+                        <input type="number" class="form-control" id="contppp" name="contppp" min=0 step=any required>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label for="contdate">Date of Registration</label>
+                        <input type="date" class="form-control" id="contdate" name="contdate" value="<?php echo date('Y-m-d') ?>" required>
+                    </div>
                 </div>
                 <div class="d-flex justify-content-center mt-3">
                     <button type="submit" class="btn btn-primary mr-3" name="contsubmit">Submit</button>
                     <input type="button" class="btn btn-danger mr-3" value="Back" onclick="history.back(-1)" />
                     <button type="home" onclick='window.location="ssf_contents.php";return false;' class="btn btn-secondary mr-3">Home</button>
+                    <a class="btn btn-info" target="_blank" href="<?php echo $contreg[3]; ?>" role="button"><?php echo $contreg[2]; ?></a>
                 </div>
             </form>
-        </div>
-    </div>
-    <div class="row bg-secondary">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-            <form method="GET" action="ssf_contractor_view.php">
-                <button type="submit" class="btn btn-primary" name="ssfcontview">View Contractors</button>
-            </form>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-        b
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-        c
         </div>
     </div>
     <?php include("../includes/footer.php");?>

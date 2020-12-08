@@ -1,9 +1,6 @@
 <?php
-    //include("includes\header.php");
-    include("../includes/bg.php");
-    include("../includes/connection.php");
+    include('../includes/session.php');
     include("../includes/allfunctions.php");
-    //include('includes/session.php');
     $cont = cont();
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -18,16 +15,16 @@
                 //$sql = "INSERT INTO `ssf_majdoori` (`madate`, `stunits`, `stcontractor`) VALUES ('$madate','$stunits','$stcontractor')";
                 $sql = "INSERT INTO `ssf_majdoori` (`madate`, `maunits`, `malocation`, `macontid`, `macontname`) VALUES ('$madate','$maunits','$malocation','$array[0]','$array[1]')";
                 $result = mysqli_query($db,$sql);
-                //$sql1 = "SELECT * FROM `ssf_cashbook`";
-                //$result1 = mysqli_query($db,$sql1);
-                //$row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
+                $sql1 = "SELECT * FROM `ssf_majdoori` ORDER BY `maid` DESC LIMIT 1";
+                $result1 = mysqli_query($db,$sql1);
+                $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
                 if($result){
                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    Successfull
+                    (Majdoori Entry Unique ID: <strong>'.$row1['maid'].'</strong>) <br>Date: <strong>'.$madate.'</strong> <br>Units: <strong>'.$maunits.'</strong> <br>Address: <strong>'.$malocation.'</strong><br>Linked Cont. ID: <strong>'.$array[0].'</strong><br>Linked Cont. Name: <strong>'.$array[1].'</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                      <span aria-hidden="true">&times;</span>
                     </button>
-                </div>';
+                  </div>';
                 }
             }
         /*}
@@ -52,12 +49,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <?php echo("<title>Majdoori$page_title</title>"); ?>
+    <?php echo("<title>$majdoori[0] $page_title</title>"); ?>
 </head>
 <body class="d-flex flex-column">
     <div class="flex-grow-1 flex-shrink-0">
         <div class="d-flex justify-content-center">
-            <p class="h1">Majdoori</p>
+            <p class="h2 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($majdoori[0]); ?></p>
         </div>
         <div class="container col-4">
             <form method="POST" action="">
@@ -92,12 +89,12 @@
                     <button type="submit" class="btn btn-primary mr-3" name="masubmit">Submit</button>
                     <input type="button" class="btn btn-danger mr-3" value="Back" onclick="history.back(-1)" />
                     <button type="home" onclick='window.location="ssf_contents.php";return false;' class="btn btn-secondary mr-3">Home</button>
+                    <a class="btn btn-info" target="_blank" href="<?php echo $majdoori[3]; ?>" role="button"><?php echo $majdoori[2]; ?></a>
                     <!--<button type="submit" class="btn btn-primary" name="available">Available</button>-->
                 </div>
             </form>
         </div>
     </div>
-    <?php include("../includes/footer.php");?>
     <script>
         if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );

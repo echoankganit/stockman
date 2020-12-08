@@ -36,12 +36,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <?php echo("<title>Add New Khushboo$page_title</title>"); ?>
+    <?php echo("<title>$khushreg[0] $page_title</title>"); ?>
 </head>
 <body class="d-flex flex-column">
     <div class="flex-grow-1 flex-shrink-0">
-        <div class="d-flex justify-content-center">
-            <p class="h1"><?php echo $khushreg[0]; ?></p>
+        <div class="d-flex justify-content-center mb-3">
+            <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($khushreg[0]); ?></p>
         </div>
         <div class="container col-4">
             <form method="POST" action="">
@@ -57,11 +57,11 @@
                     <button type="submit" class="btn btn-primary mr-3" name="khushsubmit">Submit</button>
                     <input type="button" class="btn btn-danger mr-3" value="Back" onclick="history.back(-1)" />
                     <button type="home" onclick='window.location="ssf_contents.php";return false;' class="btn btn-secondary mr-3">Home</button>
+                    <a class="btn btn-info" target="_blank" href="<?php echo $khushreg[3]; ?>" role="button"><?php echo $khushreg[2]; ?></a>
                 </div>
             </form>
         </div>
     </div>
-    <?php include("../includes/footer.php");?>
     <script>
         if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );

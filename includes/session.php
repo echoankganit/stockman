@@ -15,4 +15,5 @@
    }
    include("bg.php");
    include("topnavbar.php");
+   include("footer.php");
 ?>

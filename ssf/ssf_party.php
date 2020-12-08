@@ -39,12 +39,16 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <?php echo("<title>Party Registration $page_title</title>"); ?>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" />
+
+    <?php echo("<title>$partyreg[0] $page_title</title>"); ?>
 </head>
 <body class="d-flex flex-column">
     <div class="flex-grow-1 flex-shrink-0">
-        <div class="d-flex justify-content-center">
-            <p class="h1"><?php echo $partyreg[0]; ?></p>
+        <div class="d-flex justify-content-center mb-3">
+            <p class="h2 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($partyreg[0]); ?></p>
         </div>
         <div class="container col-4">
             <form method="POST" action="">
@@ -72,7 +76,7 @@
                     <button type="submit" class="btn btn-primary mr-3" name="psubmit">Submit</button>
                     <input type="button" class="btn btn-danger mr-3" value="Back" onclick="history.back(-1)" />
                     <button type="home" onclick='window.location="ssf_contents.php";return false;' class="btn btn-secondary mr-3">Home</button>
-                    <a class="btn btn-info" target="_blank" href="<?php echo $partyview[1]; ?>" role="button"><?php echo $partyview[0]; ?></a>
+                    <a class="btn btn-info" target="_blank" href="<?php echo $partyreg[3]; ?>" role="button"><?php echo $partyreg[2]; ?></a>
                     <!--<button type="submit" class="btn btn-primary" name="available">Available</button>-->
                 </div>
                 <!--<div class="container">
@@ -85,7 +89,7 @@
             </form>
         </div>
     </div>
-    <div class="container-fluid">
+    <!--<div class="container-fluid">
         <div class="row bg-secondary">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
                 <h2>View by party</h2>
@@ -98,12 +102,17 @@
             4
             </div>
         </div>
-    </div>
-    <?php include("../includes/footer.php");?>
+    </div>-->
     <script>
         if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
         }
+    </script>
+    <script>
+        $(document).ready(function(){
+            // Initialize select2
+            $("#pcategory").select2();
+        });
     </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
     include('../includes/session.php');
-    $sql1 = "SELECT * FROM `ssf_party`";
+    $sql1 = "SELECT * FROM `ssf_employee`";
     $result1 = mysqli_query($db,$sql1);
     $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
 ?>
@@ -39,7 +39,7 @@
     <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.colVis.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
 
-    <?php echo("<title>Party View $page_title</title>"); ?>
+    <?php echo("<title>$empreg[2] $page_title</title>"); ?>
 </head>
 <body>
     <!-- VIEW POP UP FORM (Bootstrap MODAL) -->
@@ -48,14 +48,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> View Party Data </h5>
+                    <h5 class="modal-title" id="exampleModalLabel">View Employee Data</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
                 <form>
-                    <div class="modal-body" id="viewparty">
+                    <div class="modal-body" id="viewemployee">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> CLOSE </button>
@@ -73,38 +73,30 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Update Party Details </h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Update Employee Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
-                <form action="ssf_party_edit.php" method="POST">
+                <form action="ssf_employee_edit.php" method="POST">
                     <div class="modal-body">
-                    <input type="hidden" name="epid" id="epid">
+                        <input type="hidden" name="eempid" id="eempid">
                         <div class="form-group">
-                            <label for="pname">Party ID</label>
-                            <input type="text" class="form-control" name="epid" id="epid1" disabled>
+                            <label for="eempid1">Employee ID</label>
+                            <input type="text" class="form-control" name="eempid1" id="eempid1" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="pname">Party Name</label>
-                            <input type="text" class="form-control" id="epname" name="epname">
+                            <label for="eempname">Employee Name</label>
+                            <input type="text" class="form-control" id="eempname" name="eempname" required>
                         </div>
                         <div class="form-group">
-                            <label for="paddress">Party Address</label>
-                            <input type="text" class="form-control" id="epaddress" name="epaddress">
+                            <label for="eempaddress">Employee Address</label>
+                            <input type="text" class="form-control" id="eempaddress" name="eempaddress" required>
                         </div>
                         <div class="form-group">
-                            <label for="pgstin">GSTIN</label>
-                            <input type="text" class="form-control" id="epgstin" name="epgstin">
-                        </div>
-                        <div class="form-group">
-                            <label for="pcategory">Party Category</label>
-                            <select class="form-control" id="epcategory" name="epcategory">
-                            <?php foreach($pcategories as $item){
-                                echo "<option value='$item'>$item</option>";
-                            }?>
-                            </select>
+                            <label for="eempdate">Date of Registration</label>
+                            <input type="date" class="form-control" id="eempdate" name="eempdate" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -123,15 +115,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Delete Party Data </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Delete employee Data </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
-                <form action="ssf_party_delete.php" method="POST">
+                <form action="ssf_employee_delete.php" method="POST">
                     <div class="modal-body">
-                        <input type="hidden" name="dpid" id="dpid">
+                        <input type="hidden" name="dempid" id="dempid">
                         <h4> Do you want to Delete this Data ??</h4>
                     </div>
                     <div class="modal-footer">
@@ -147,38 +139,35 @@
 
     <!-- /////////////////////////// -->
     <div class="d-flex justify-content-center mb-3">
-        <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($partyreg[2]); ?></p>
+        <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($empreg[2]); ?></p>
     </div>
     <div class="container">
-    <table id="example" class="table table-striped table-bordered hover display" style="width:100%">
+    <table id="example" class="table table-striped table-bordered hover design" style="width:100%">
             <thead>
                 <tr class="bg-dark text-white">
-                    <th>Party ID</th>
-                    <th>Party Name</th>
-                    <th>Address</th>
-                    <th>GSTIN</th>
-                    <th>Party Category</th>
+                    <th>Emp. ID</th>
+                    <th>Emp. Name</th>
+                    <th>Emp. Address</th>
+                    <th>Date of Reg.</th>
                     <th>Operation</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th>Party ID</th>
-                    <th>Party Name</th>
-                    <th>Address</th>
-                    <th>GSTIN</th>
-                    <th>Party Category</th>
+                    <th>Emp. ID</th>
+                    <th>Emp. Name</th>
+                    <th>Emp. Address</th>
+                    <th>Date of Reg.</th>
                 </tr>
             </tfoot>
             <tbody>
                 <?php 
                     foreach($result1 as $row){
                         echo'<tr class="bg-light">
-                        <td>'.$row['partyid'].'</td>
-                        <td>'.$row['pname'].'</td>
-                        <td>'.$row['paddress'].'</td>
-                        <td>'.$row['pgstin'].'</td>
-                        <td>'.$row['pcategory'].'</td>
+                        <td>'.$row['empid'].'</td>
+                        <td>'.$row['empname'].'</td>
+                        <td>'.$row['empaddress'].'</td>
+                        <td>'.$row['empdate'].'</td>
                         <td><i class="far fa-eye viewbtn text-success pl-5"></i>
                         <i class="far fa-edit editbtn text-primary px-3"></i>
                         <i class="far fa-trash-alt text-danger deletebtn" id="deletebtn"></i>
@@ -239,19 +228,19 @@
         $(document).ready(function () {
             $('#example').on('click', '.viewbtn', function () {
                 $tr = $(this).closest('tr');
-                //var pid = $(this).attr("partyid");
+                //var pid = $(this).attr("employeeid");
                 var data = $tr.children("td").map(function () {
                     return $(this).text();
                 }).get();
                 console.log(data);
-                var pid=data[0];
-                //$('#epid').val(data[0]);
+                var vempid=data[0];
+                //$('#eempid').val(data[0]);
                 $.ajax({ //create an ajax request to display.php
                     method: "POST",
-                    url: "../ssf/ssf_party_display.php",
-                    data: {pid:pid}, //expect html to be returned                
+                    url: "../ssf/ssf_employee_display.php",
+                    data: {vempid:vempid}, //expect html to be returned                
                     success: function (data) {
-                        $("#viewparty").html(data);
+                        $("#viewemployee").html(data);
                         $('#viewmodal').modal('show');
                         //alert(response);
                     }
@@ -270,7 +259,7 @@
                     return $(this).text();
                 }).get();
                 console.log(data);
-                $('#dpid').val(data[0]);
+                $('#dempid').val(data[0]);
             });
         });
     </script>
@@ -285,12 +274,11 @@
                     return $(this).text();
                 }).get();
                 console.log(data);
-                $('#epid').val(data[0]);
-                $('#epid1').val(data[0]);
-                $('#epname').val(data[1]);
-                $('#epaddress').val(data[2]);
-                $('#epgstin').val(data[3]);
-                $('#epcategory').val(data[4]);
+                $('#eempid').val(data[0]);
+                $('#eempid1').val(data[0]);
+                $('#eempname').val(data[1]);
+                $('#eempaddress').val(data[2]);
+                $('#eempdate').val(data[3]);
             });
         });
     </script>

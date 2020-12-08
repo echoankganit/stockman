@@ -1,8 +1,5 @@
 <?php
     include("../includes/session.php");
-    //include("../includes/bg.php");
-    //include("../includes/connection.php");
-    //include("../includes/header.php");
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,7 +20,7 @@
   </head>
   <body>
     <div class="d-flex justify-content-center mb-3">
-        <h2><?php echo strtoupper($comp1[0]) ?></h2>
+        <p class="h2 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($comp1[0]); ?></p>
     </div>
     <div class="container">
         <div class="row justify-content-md-center">

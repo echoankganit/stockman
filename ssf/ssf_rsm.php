@@ -1,4 +1,5 @@
 <?php
+ob_start();
     include("../includes/session.php");
     //include("includes\header.php");
     //include("../includes/bg.php");
@@ -32,7 +33,7 @@
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>';
-            echo 'Please Refresh this page before making new entry.';
+            echo 'Page will refresh after 5 sec automatically';
             echo '</div></div>';
             echo'<div class="container">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -48,12 +49,14 @@
             else
                 echo $ricetype." ".$riceweight." KG out = ".$rowout." KG Total and have ".$rowout/$riceweight." bag(s). <br>";
             echo "<strong>Available Stock = ".$rowtotal." KG Total and have ".$rowtotal/$riceweight." bag(s).</strong>";
-            echo '</div>';
+            echo '</div></div>';
+            header("refresh: 5");
         }
         else if($pcategory!='Select'){
             $pname = mysqli_real_escape_string($db, $_POST['pname']);
+            $array =  explode('-', $pname);
             if (isset($_POST['rsmsubmit'])){
-                $sql = "INSERT INTO `ssf_rsm` (`ricetype`, `riceweight`, `units`, `rsmentry`, `pname`, `pcategory`) VALUES ('$ricetype','$riceweight','$units','$rsmentry','$pname','$pcategory')";
+                $sql = "INSERT INTO `ssf_rsm` (`ricetype`, `riceweight`, `units`, `rsmentry`, `pid`, `pname`, `pcategory`) VALUES ('$ricetype','$riceweight','$units','$rsmentry','$array[0]','$array[1]','$pcategory')";
                 $pname = partyname();
                 $pcategory = partycategory();
                 $result = mysqli_query($db,$sql);
@@ -80,11 +83,12 @@
             }
         }
         else {
-            echo 'Please refresh the page <br>';
+            echo 'Page Refresh after 3 sec <br>';
             echo 'Choose Party Category and then again submit the form.';
-            //header("refresh: 3");
+            header("refresh: 3");
         }
     }
+    ob_end_flush();
 ?>
 <!doctype html>
 <html lang="en">
@@ -94,9 +98,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <!-- CSS for party category search in select item -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" />
+    <!-- Mine CSS -->
     <link rel="stylesheet" href="../includes/css/design.css">
-    <link rel="stylesheet" href="../includes/css/design2.css">
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -104,6 +111,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <!--https://www.tutorialrepublic.com/faq/populate-state-dropdown-based-on-selection-in-country-dropdown-using-jquery.php#:~:text=Answer%3A%20Use%20the%20jQuery%20ajax,while%20filling%20the%20registration%20form.-->
+    
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         $(document).ready(function(){
@@ -119,6 +127,8 @@
             });
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous"></script>
+    
     <!--<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
     $(document).ready(function(){
@@ -134,12 +144,12 @@
         });
     });
     </script>-->
-    <?php echo("<title>Rice Stock Management$page_title</title>"); ?>
+    <?php echo("<title>$rsm[0] $page_title</title>"); ?>
 </head>
 <body class="d-flex flex-column">
     <div class="flex-grow-1 flex-shrink-0">
         <div class="d-flex justify-content-center">
-            <p class="h1">Rice Management Stock</p>
+            <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($rsm[0]); ?></p>
         </div>
         <div class="container col-4">
             <form method="POST" action="">
@@ -198,7 +208,7 @@
                 <div class="form-group">
                     <label for="pcategory">Party Catgory</label>
                     <select class="partycategory form-control" id="partycategory" name="pcategory">
-                    <option value='Select'>Select</option>;
+                    <option value='Select'>Select</option>
                     <?php foreach($pcategory as $item){
                         echo "<option value='$item'>$item</option>";
                     }?>
@@ -240,6 +250,9 @@
                     <button type="submit" class="btn btn-primary" name="available">Available</button>
                 </div>
             </form>
+            <div class="d-flex justify-content-center my-3">
+                <a class="btn btn-info" target="_blank" href="<?php echo $rsm[3]; ?>" role="button"><?php echo $rsm[2]; ?></a>
+            </div>
         </div>
     </div>
     <div class="row bg-secondary">
@@ -280,11 +293,16 @@
         3
         </div>
     </div>
-    <?php include("../includes/footer.php");?>
     <script>
         if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
         }
+    </script>
+    <script>
+        $(document).ready(function(){
+            // Initialize select2
+            $("#partycategory").select2();
+        });
     </script>
 </body>
 </html>

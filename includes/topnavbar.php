@@ -1,5 +1,6 @@
 <!--Navbar -->
-<nav class="mb-1 navbar navbar-expand-lg navbar-dark sticky-top bg-primary">
+<div class="bg-primary mb-5">
+<nav class="container navbar navbar-expand-lg navbar-dark sticky-top">
   <a class="navbar-brand" href="<?php echo $comp1[1]; ?>"><?php echo $comp1[0] ?></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
     aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,39 +19,35 @@
       <li class="nav-item">
         <a class="nav-link bg-danger text-white" href="<?php echo $empatt[1]; ?>"><?php echo $empatt[0]; ?></a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle bg-success text-light" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Khata</a>
+      <li class="nav-item dropdown bg-white">
+        <a class="nav-link dropdown-toggle text-dark mx-3" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">Entry</a>
         <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-          <a class="dropdown-item" href="<?php echo $cashbook[1]; ?>"><?php echo $cashbook[0]; ?></a>
-          <a class="dropdown-item" href="<?php echo $bankbook[1]; ?>"><?php echo $bankbook[0]; ?></a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle bg-warning text-dark" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Misc</a>
-        <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-          <a class="dropdown-item" href="<?php echo $khushboo[1]; ?>"><?php echo $khushboo[0]; ?></a>
-          <a class="dropdown-item" href="<?php echo $stitching[1]; ?>"><?php echo $stitching[0]; ?></a>
-          <a class="dropdown-item" href="<?php echo $majdoori[1]; ?>"><?php echo $majdoori[0]; ?></a>
+          <div class="dropdown-header text-dark" style="background-color: rgba(3, 169, 244, 0.3)">Khata</div>
+          <a class="dropdown-item text-dark" style="background-color: rgba(76, 175, 80, 0.7)" href="<?php echo $cashbook[1]; ?>"><?php echo $cashbook[0]; ?></a>
+          <a class="dropdown-item text-dark" style="background-color: rgba(76, 175, 80, 0.7)" href="<?php echo $bankbook[1]; ?>"><?php echo $bankbook[0]; ?></a>
+          <div class="dropdown-header text-dark" style="background-color: rgba(3, 169, 244, 0.3)">Misc</div>
+          <a class="dropdown-item" style="background-color: rgba(255, 235, 59, 0.7)" href="<?php echo $khushboo[1]; ?>"><?php echo $khushboo[0]; ?></a>
+          <a class="dropdown-item" style="background-color: rgba(255, 235, 59, 0.7)" href="<?php echo $stitching[1]; ?>"><?php echo $stitching[0]; ?></a>
+          <a class="dropdown-item" style="background-color: rgba(255, 235, 59, 0.7)" href="<?php echo $majdoori[1]; ?>"><?php echo $majdoori[0]; ?></a>
         </div>
       </li>
       <li class="nav-item dropdown bg-dark">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+        <a class="nav-link dropdown-toggle mx-2" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">Registration</a>
         <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-          <div class="dropdown-header">Party</div>
+          <div class="dropdown-header text-dark" style="background-color: rgba(3, 169, 244, 0.3)">Party</div>
           <a class="dropdown-item" href="<?php echo $partyreg[1]; ?>"><?php echo $partyreg[0]; ?></a>
           <a class="dropdown-item" href="<?php echo $partyreg[3]; ?>"><?php echo $partyreg[2]; ?></a>
-          <div class="dropdown-header">Employee</div>
+          <div class="dropdown-header text-dark" style="background-color: rgba(3, 169, 244, 0.3)">Employee</div>
           <a class="dropdown-item" href="<?php echo $empreg[1]; ?>"><?php echo $empreg[0]; ?></a>
-          <a class="dropdown-item disabled" href="<?php echo $empreg[3]; ?>"><?php echo $empreg[2]; ?></a>
-          <div class="dropdown-header">Contractor</div>
+          <a class="dropdown-item" href="<?php echo $empreg[3]; ?>"><?php echo $empreg[2]; ?></a>
+          <div class="dropdown-header text-dark" style="background-color: rgba(3, 169, 244, 0.3)">Contractor</div>
           <a class="dropdown-item" href="<?php echo $contreg[1]; ?>"><?php echo $contreg[0]; ?></a>
-          <a class="dropdown-item disabled" href="<?php echo $contreg[3]; ?>"><?php echo $contreg[2]; ?></a>
-          <div class="dropdown-header">Khushboo</div>
+          <a class="dropdown-item" href="<?php echo $contreg[3]; ?>"><?php echo $contreg[2]; ?></a>
+          <div class="dropdown-header text-dark" style="background-color: rgba(3, 169, 244, 0.3)">Khushboo</div>
           <a class="dropdown-item" href="<?php echo $khushreg[1]; ?>"><?php echo $khushreg[0]; ?></a>
-          <a class="dropdown-item disabled" href="<?php echo $khushreg[3]; ?>"><?php echo $khushreg[2]; ?></a>
+          <a class="dropdown-item" href="<?php echo $khushreg[3]; ?>"><?php echo $khushreg[2]; ?></a>
         </div>
       </li>
      
@@ -79,9 +76,5 @@
     </ul>
   </div>
 </nav>
-<?php
-  echo "<p align=\"right\">".date("l") . "&nbsp;" .date("d/M/Y");
-  date_default_timezone_set("Asia/Calcutta");
-  echo " ". date("h:i:sa"). "</p>";
-?>
+</div>
 <!--/.Navbar -->
