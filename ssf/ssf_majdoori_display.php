@@ -2,8 +2,9 @@
     include('../includes/sessiononly.php');
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $maid = mysqli_real_escape_string($db, $_POST['vmaid']);
+
         $sql1 = "SELECT * FROM `ssf_majdoori` WHERE maid='$maid'";
-        $result1 = mysqli_query($db, $sql1);
+        $result1 = mysqli_query($db, $sql1) or die(mysqli_error($db));
     }
     while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC)){
     echo '<form>
@@ -24,7 +25,7 @@
         </div>
         <div class="form-group">
             <label for="vmalocation">Location</label>
-            <input type="text" class="form-control" id="vmalocation" name="vmalocation" value= "'.$row1["malocation"].'" disabled>
+            <textarea class="form-control" id="emalocation" name="emalocation" rows="3" disabled>'.htmlspecialchars($row1["malocation"]).'</textarea>
         </div>
 
         <hr>

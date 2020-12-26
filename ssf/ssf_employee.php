@@ -4,15 +4,17 @@
         $empname = mysqli_real_escape_string($db, $_POST['empname']);
         $empaddress = mysqli_real_escape_string($db, $_POST['empaddress']);
         $empdate = mysqli_real_escape_string($db, $_POST['empdate']);
+        $empsalary = mysqli_real_escape_string($db, $_POST['empsalary']);
         if (isset($_POST['empsubmit'])){
-            $sql = "INSERT INTO `ssf_employee` (`empname`, `empaddress`, `empdate`) VALUES ('$empname','$empaddress', '$empdate')";
-            $result = mysqli_query($db,$sql);
+            $sql = "INSERT INTO `ssf_employee` (`empname`, `empaddress`, `empdate`, `empsalary`) VALUES ('$empname','$empaddress', '$empdate', '$empsalary')";
+            $result = mysqli_query($db,$sql) or die(mysqli_error($db));
+
             $sql1 = "SELECT * FROM `ssf_employee` ORDER BY `empid` DESC LIMIT 1";
-            $result1 = mysqli_query($db,$sql1);
+            $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
             $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
             if($result){
                 echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                (Employee Unique ID: '.$row1['empid'].') <br>Employee Name: <strong>'.$empname.'</strong><br>Employee Address: <strong>'.$empaddress.'</strong><br>Date: <strong>'.$row1['empdate'].'</strong><br>
+                (Employee Unique ID: <strong>'.$row1['empid'].'</strong>) <br>Employee Name: <strong>'.$empname.'</strong><br>Employee Address: <strong>'.$empaddress.'</strong><br>Date: <strong>'.$empdate.'</strong><br>Employee Salary: <strong>'.$empsalary.'</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -51,11 +53,21 @@
                 </div>
                 <div class="form-group">
                     <label for="empaddress">Employee Address</label>
-                    <input type="text" class="form-control" id="empaddress" name="empaddress" required>
+                    <textarea class="form-control" id="empaddress" name="empaddress" rows="3" required></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="empdate">Date of Registration</label>
-                    <input type="date" class="form-control" id="empdate" name="empdate" value="<?php echo date('Y-m-d') ?>" required>
+                <div class="form-row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="empdate">Date of Registration</label>
+                            <input type="date" class="form-control" id="empdate" name="empdate" value="<?php echo date('Y-m-d') ?>" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="empsalary">Employee Salary</label>
+                            <input type="number" class="form-control" id="empsalary" name="empsalary" min=0.00 step=1 required>
+                        </div>
+                    </div>
                 </div>
                 <div class="d-flex justify-content-center mt-3">
                     <button type="submit" class="btn btn-primary mr-3" name="empsubmit">Submit</button>

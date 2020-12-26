@@ -1,31 +1,36 @@
 <?php
     include('../includes/sessiononly.php');
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $entryrno = mysqli_real_escape_string($db, $_POST['vrsmid']);
-        $sql1 = "SELECT * FROM `ssf_rsm` WHERE entryrno='$entryrno'";
-        $result1 = mysqli_query($db, $sql1);
+        $rsmid = mysqli_real_escape_string($db, $_POST['vrsmid']);
+
+        $sql1 = "SELECT * FROM `ssf_rsm` WHERE `rsmid`='$rsmid'";
+        $result1 = mysqli_query($db, $sql1) or die(mysqli_error($db));
     }
     while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC)){
-    echo '<form>
+        $rsmpid = $row1["rsmpid"];
+        $sql2 = "SELECT * FROM `ssf_party` WHERE pid='$rsmpid'";
+        $result2 = mysqli_query($db, $sql2) or die(mysqli_error($db));
+        $row2 = mysqli_fetch_array($result2,MYSQLI_ASSOC);
+        echo '<form>
         <h2>Rice Stock Details</h2>
         <div class="form-group">
             <label for="vrsmid">RSM ID</label>
-            <input type="text" class="form-control" id="vrsmid" name="vrsmid" value= "'.$row1["entryrno"].'" disabled>
+            <input type="text" class="form-control" id="vrsmid" name="vrsmid" value= "'.$row1["rsmid"].'" disabled>
         </div>
         <div class="form-row">
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <label for="vricetype">Rice Type</label>
-                <input type="text" class="form-control" id="vricetype" name="vricetype" value= "'.$row1["ricetype"].'" disabled>
+                <label for="vrsmricetype">Rice Type</label>
+                <input type="text" class="form-control" id="vrsmricetype" name="vrsmricetype" value= "'.$row1["rsmricetype"].'" disabled>
             </div>
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <label for="vriceweight">Rice Weight</label>
-                <input type="text" class="form-control" id="vriceweight" name="vriceweight" value= "'.$row1["riceweight"].'" disabled>
+                <label for="vrsmriceweight">Rice Weight</label>
+                <input type="text" class="form-control" id="vrsmriceweight" name="vrsmriceweight" value= "'.$row1["rsmriceweight"].' KG" disabled>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <label for="vunits">Units</label>
-                <input type="text" class="form-control" id="vunits" name="vunits" value= "'.$row1["units"].'" disabled>
+                <label for="vrsmunits">Units</label>
+                <input type="text" class="form-control" id="vrsmunits" name="vrsmunits" value= "'.$row1["rsmunits"].'" disabled>
             </div>
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="vrsmentry">Entry</label>
@@ -35,17 +40,17 @@
         <hr>
         <h2>Linked Party Details</h2>
         <div class="form-group">
-            <label for="vpcategory">Party Category</label>
-            <input type="text" class="form-control" id="vpcategory" name="vpcategory" value= "'.$row1["pcategory"].'" disabled>
+            <label for="vrsmpcategory">Party Category</label>
+            <input type="text" class="form-control" id="vrsmpcategory" name="vrsmpcategory" value= "'.$row2["pcategory"].'" disabled>
         </div>
         <div class="form-row">
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <label for="vpid">Party ID</label>
-                <input type="text" class="form-control" id="vpid" name="vpid" value= "'.$row1["pid"].'" disabled>
+                <label for="vrsmpid">Party ID</label>
+                <input type="text" class="form-control" id="vrsmpid" name="vrsmpid" value= "'.$row1["rsmpid"].'" disabled>
             </div>  
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <label for="vpname">Party Name</label>
-                <input type="text" class="form-control" id="vpname" name="vpname" value= "'.$row1["pname"].'" disabled>
+                <label for="vrsmpname">Party Name</label>
+                <input type="text" class="form-control" id="vrsmpname" name="vrsmpname" value= "'.$row1["rsmpname"].'" disabled>
             </div>
         </div>        
     </form>';

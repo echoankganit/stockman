@@ -1,7 +1,8 @@
 <?php
     include('../includes/session.php');
+
     $sql1 = "SELECT * FROM `ssf_stitching`";
-    $result1 = mysqli_query($db,$sql1);
+    $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
 ?>
 <!doctype html>
 <html lang="en">
@@ -80,8 +81,7 @@
 
                 <form action="ssf_stitching_edit.php" method="POST">
                     <div class="modal-body">
-                        <!-- <input type="hidden" name="emaid" id="emaid"> -->
-                        <h3>Stitching Entry Details</h3>
+                        <p class="h3">Stitching Entry Details</p>
                         <div class="form-group">
                             <label for="estid">Stitching ID</label>
                             <input type="text" class="form-control" id="estid" name="estid" readonly>
@@ -98,9 +98,9 @@
                         </div>
                         <div class="form-group">
                             <label for="estlocation">Location</label>
-                            <input type="text" class="form-control" id="estlocation" name="estlocation">
+                            <textarea class="form-control" id="estlocation" name="estlocation" rows="3"></textarea>
                         </div>
-                        <p class="text-danger">If you want to change contractor please enter the ID of contractor else leave as it is.</p>
+                        <p class="text-white bg-danger p-3">If you want to change contractor please enter the ID of contractor else leave as it is.</p>
                         <div class="form-group">
                             <label for="estcontid1">New Contractor ID</label>
                             <input type="number" min=0 step=1 class="form-control" id="estcontid1" name="estcontid1">
@@ -145,12 +145,12 @@
 
                 <form action="ssf_stitching_delete.php" method="POST">
                     <div class="modal-body">
-                        <input type="hidden" name="dstid" id="dstid">
+                        <input type="text" name="dstid" id="dstid" readonly>
                         <h4>Do you want to Delete this Entry ??</h4>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
-                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes !! Delete it. </button>
+                        <button type="submit" name="deletedata" class="btn btn-danger"> Yes !! Delete it. </button>
                     </div>
                 </form>
 
@@ -163,7 +163,7 @@
     <div class="d-flex justify-content-center mb-3">
         <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($stitching[2]); ?></p>
     </div>
-    <div class="container">
+    <div class="mx-4">
         <table id="example" class="table table-striped table-bordered hover display" style="width:100%">
             <thead>
                 <tr class="bg-dark text-white">
@@ -304,7 +304,6 @@
                 }).get();
                 console.log(data);
                 $('#estid').val(data[0]);
-                $('#estid1').val(data[0]);
                 $('#estdate').val(data[1]);
                 $('#estunits').val(data[2]);
                 $('#estlocation').val(data[3]);

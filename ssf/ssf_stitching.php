@@ -14,9 +14,10 @@
             if (isset($_POST['stsubmit'])){
                 //$sql = "INSERT INTO `ssf_stitching` (`stdate`, `stunits`, `stcontractor`) VALUES ('$stdate','$stunits','$stcontractor')";
                 $sql = "INSERT INTO `ssf_stitching` (`stdate`, `stunits`, `stlocation`, `stcontid`, `stcontname`) VALUES ('$stdate','$stunits','$stlocation','$array[0]','$array[1]')";
-                $result = mysqli_query($db,$sql);
+                $result = mysqli_query($db,$sql) or die(mysqli_error($db));
+
                 $sql1 = "SELECT * FROM `ssf_stitching` ORDER BY `stid` DESC LIMIT 1";
-                $result1 = mysqli_query($db,$sql1);
+                $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
                 $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
                 if($result){
                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -74,7 +75,7 @@
                 </div>
                 <div class="form-group">
                     <label for="stlocation">Location</label>
-                    <input type="text" class="form-control" id="stlocation" name="stlocation" required>
+                    <textarea class="form-control" id="stlocation" name="stlocation" rows="3"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="stcontractor">Contractor Name</label>

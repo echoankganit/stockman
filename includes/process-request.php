@@ -33,7 +33,7 @@ if(isset($_POST["partycategory"])){
         $pname = array();
         $resulta = mysqli_query($db,"SELECT * FROM `ssf_party` WHERE `pcategory`='$partycategory'");
         while ($rowa = mysqli_fetch_array($resulta, MYSQLI_ASSOC)) {
-            $pname[] = $rowa['partyid']."-".$rowa['pname'];
+            $pname[] = $rowa['pid']."-".$rowa['pname'];
             // OR 
             // $array1[] = $row[1];
         }

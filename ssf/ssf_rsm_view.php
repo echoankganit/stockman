@@ -1,10 +1,9 @@
 <?php
     include('../includes/session.php');
     include('../includes/allfunctions.php');
+    
     $sql1 = "SELECT * FROM `ssf_rsm`";
-    $result1 = mysqli_query($db,$sql1);
-    $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
-    $pcategory = partycategory();
+    $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
 ?>
 <!doctype html>
 <html lang="en">
@@ -41,21 +40,6 @@
     <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.colVis.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
-    <!--<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>-->
-    <script>
-        $(document).ready(function(){
-            $("select.partycategory").change(function(){
-                var selectedPcategory = $(".partycategory option:selected").val();
-                $.ajax({
-                    type: "POST",
-                    url: "../includes/process-request.php",
-                    data: { partycategory : selectedPcategory } 
-                }).done(function(data){
-                    $("#epname").html(data);
-                });
-            });
-        });
-    </script>
 
     <?php echo("<title>$rsm[2] $page_title</title>"); ?>
 </head>
@@ -99,16 +83,15 @@
 
                 <form action="ssf_rsm_edit.php" method="POST">
                     <div class="modal-body">
-                        <!-- <input type="hidden" name="ersmid" id="ersmid"> -->
-                        <h3>Rice Stock Details</h3>
+                        <p class="h3">Rice Stock Details</p>
                         <div class="form-group">
                             <label for="ersmid">RSM ID</label>
                             <input type="text" class="form-control" id="ersmid" name="ersmid" readonly>
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <label for="ericetype">Rice Type</label>
-                                <select class="form-control" id="ericetype" name="ericetype">
+                                <label for="ersmricetype">Rice Type</label>
+                                <select class="form-control" id="ersmricetype" name="ersmricetype">
                                 <option value="Loose">Loose</option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
@@ -118,8 +101,8 @@
                                 </select>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <label for="ericeweight">weight</label>
-                                <select class="form-control" id="ericeweight" name="ericeweight">
+                                <label for="ersmriceweight">weight</label>
+                                <select class="form-control" id="ersmriceweight" name="ersmriceweight">
                                 <option value="1">1 KG</option>
                                 <option value="5">5 KG</option>
                                 <option value="10">10 KG</option>
@@ -133,9 +116,9 @@
                         <div class="form-row">
                             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <label for="units">Units</label>
-                                <input type="number" class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12" id="eunits" name="eunits" min="1" value="1">
+                                <input type="number" class="form-control" id="ersmunits" name="ersmunits" min="1" value="1">
                             </div>
-                            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
                                 <div>Entry</div>
                                 <div class="form-check form-check-inline py-2">
                                     <input class="form-check-input" type="radio" name="ersmentry" id="ersmin" value="in">
@@ -151,28 +134,28 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="text-danger">If you want to change Party please enter the ID of party else leave as it is.</p>
+                        <p class="text-white bg-danger p-3">If you want to change Party details please enter the ID of party else leave as it is.</p>
                         <div class="form-group">
-                            <label for="epid1">New Party ID</label>
-                            <input type="number" min=0 step=1 class="form-control" id="epid1" name="epid1">
+                            <label for="ersmpid">New Party ID</label>
+                            <input type="number" min=0 step=1 class="form-control" id="ersmpid" name="ersmpid">
                         </div>
 
-                        <hr>
-                        <h4>Linked Party Details</h4>
+                       <!--  <hr> -->
+                        <!-- <h4>Linked Party Details</h4>
                         <div class="form-group">
-                            <label for="epcategory">Party Category</label>
-                            <input type="text" class="form-control" id="epcategory" name="epcategory" disabled>
+                            <label for="ersmpcategory">Party Category</label>
+                            <input type="text" class="form-control" id="ersmpcategory" name="ersmpcategory" disabled>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <label for="epid">Party ID</label>
-                                <input type="text" class="form-control" id="epid" name="epid" disabled>
+                                <label for="ersmpid">Party ID</label>
+                                <input type="text" class="form-control" id="ersmpid" name="ersmpid" disabled>
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <label for="epname">Party Name</label>
-                                <input type="text" class="form-control" id="epname" name="epname" disabled>
+                                <label for="ersmpname">Party Name</label>
+                                <input type="text" class="form-control" id="ersmpname" name="ersmpname" disabled>
                             </div>
-                        </div>       
+                        </div>        -->
                         <!--<div class="form-group">
                             <label for="epcategory">Party Category</label>
                             <select class="partycategory form-control" id="epcategory" name="epcategory">
@@ -209,7 +192,7 @@
 
                 <form action="ssf_rsm_delete.php" method="POST">
                     <div class="modal-body">
-                        <input type="hidden" name="drsmid" id="drsmid">
+                        <input type="text" name="drsmid" id="drsmid" readonly>
                         <h4> Do you want to Delete this Data ??</h4>
                     </div>
                     <div class="modal-footer">
@@ -225,9 +208,9 @@
 
     <!-- /////////////////////////// -->
     <div class="d-flex justify-content-center mb-3">
-        <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($rsm[2]); ?></p>
+        <p class="h3 bg-light px-4 py-2" style="border-radius: 25px"><?php echo strtoupper($rsm[2]); ?></p>
     </div>
-    <div class="container">
+    <div class="mx-4">
         <table id="example" class="table table-striped table-bordered hover display" style="width:100%">
             <thead>
                 <tr class="bg-dark text-white">
@@ -236,7 +219,7 @@
                     <th>Rice Weight</th>
                     <th>Units</th>
                     <th>Entry</th>
-                    <th>Party Category</th>
+                    <!-- <th>Party Category</th> -->
                     <th>Party ID</th>
                     <th>Party Name</th>
                     <th>Operation</th>
@@ -249,7 +232,7 @@
                     <th>Rice Weight</th>
                     <th>Units</th>
                     <th>Entry</th>
-                    <th>Party Category</th>
+                    <!-- <th>Party Category</th> -->
                     <th>Party ID</th>
                     <th>Party Name</th>
                 </tr>
@@ -258,14 +241,13 @@
                 <?php 
                     foreach($result1 as $row){
                         echo'<tr class="bg-light">
-                        <td>'.$row['entryrno'].'</td>
-                        <td>'.$row['ricetype'].'</td>
-                        <td>'.$row['riceweight'].'</td>
-                        <td>'.$row['units'].'</td>
+                        <td>'.$row['rsmid'].'</td>
+                        <td>'.$row['rsmricetype'].'</td>
+                        <td>'.$row['rsmriceweight'].' KG</td>
+                        <td>'.$row['rsmunits'].'</td>
                         <td>'.$row['rsmentry'].'</td>
-                        <td>'.$row['pcategory'].'</td>
-                        <td>'.$row['pid'].'</td>
-                        <td>'.$row['pname'].'</td>
+                        <td>'.$row['rsmpid'].'</td>
+                        <td>'.$row['rsmpname'].'</td>
                         <td><i class="far fa-eye viewbtn text-success"></i>
                         <i class="far fa-edit editbtn text-primary px-3"></i>
                         <i class="far fa-trash-alt text-danger deletebtn" id="deletebtn"></i>
@@ -373,12 +355,13 @@
                 var data = $tr.children("td").map(function () {
                     return $(this).text();
                 }).get();
+                //var rsmwe = data[2];
+                //console.log(rsmwe);
                 console.log(data);
                 $('#ersmid').val(data[0]);
-                $('#ersmid1').val(data[0]);
-                $('#ericetype').val(data[1]);
-                $('#ericeweight').val(data[2]);
-                $('#eunits').val(data[3]);
+                $('#ersmricetype').val(data[1]);
+                $('#ersmriceweight').val(data[2].replace(/\D/g, ''));
+                $('#ersmunits').val(data[3]);
                 //var jrsmentry=data[4];
                 //console.log(data[4]);
                 //$('#ersme').val(data[4]);
@@ -387,10 +370,10 @@
                 //$('#ersmentry').val(RadeoButtonStatusCheck);
                 $('[name="ersmentry"]').val([data[4]]);
                 //$('input[name=ersmentry]:checked').val();
-                $('#epcategory').val(data[5]);
-                $('#epid').val(data[6]);
-                $('#epid1').val(data[6]);
-                $('#epname').val(data[7]);
+                //$('#ersmpcategory').val(data[5]);
+                $('#ersmpid').val(data[5]);
+                //$('#ersmpid1').val(data[5]);
+                $('#ersmpname').val(data[6]);
             });
         });
     </script>

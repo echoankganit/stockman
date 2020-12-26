@@ -1,4 +1,16 @@
 <?php
+function partyidname(){
+    global $db;
+    $pidname = array();
+    $resulta = mysqli_query($db,"SELECT * FROM `ssf_party`");
+    while ($rowa = mysqli_fetch_array($resulta, MYSQLI_ASSOC)) {
+        $pidname[] = $rowa['pid']."-".$rowa['pname'];
+        // OR 
+        // $array1[] = $row[1];
+    }
+    return $pidname;
+}
+
 function partyname(){
     global $db;
     $pname = array();
@@ -41,7 +53,7 @@ function khush(){
     $khush = array();
     $resulta = mysqli_query($db,"SELECT * FROM `ssf_new_khushboo`");
     while ($rowa = mysqli_fetch_array($resulta, MYSQLI_ASSOC)) {
-        $khush[] = $rowa['khushid']."-".$rowa['khushname']."-".$rowa['khushquality'];
+        $khush[] = $rowa['nkid']."-".$rowa['nkname']."-".$rowa['nkquality'];
         // OR 
         // $array1[] = $row[1];
     }

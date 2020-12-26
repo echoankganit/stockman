@@ -8,13 +8,14 @@
         $contdate = mysqli_real_escape_string($db, $_POST['contdate']);
         if (isset($_POST['contsubmit'])){
             $sql = "INSERT INTO `ssf_contractor` (`contname`, `contaddress`, `contppp`, `contdate`) VALUES ('$contname','$contaddress', '$contppp', '$contdate')";
-            $result = mysqli_query($db,$sql);
+            $result = mysqli_query($db,$sql) or die(mysqli_error($db));
+            
             $sql1 = "SELECT * FROM `ssf_contractor` ORDER BY `contid` DESC LIMIT 1";
-            $result1 = mysqli_query($db,$sql1);
+            $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
             $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
             if($result){
                 echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                (Contractor Unique ID: '.$row1['contid'].') <br>Contractor Name: <strong>'.$contname.'</strong><br>Contractor Address: <strong>'.$contaddress.'</strong><br>Date: <strong>'.$row1['contdate'].'</strong><br>Price per Piece: <strong>'.$row1['contppp'].'</strong>
+                (Contractor Unique ID: <strong>'.$row1['contid'].'</strong>) <br>Contractor Name: <strong>'.$contname.'</strong><br>Contractor Address: <strong>'.$contaddress.'</strong><br>Date: <strong>'.$row1['contdate'].'</strong><br>Price per Piece: <strong>'.$row1['contppp'].'</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -38,7 +39,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <?php echo("<title>Contractor Registration$page_title</title>"); ?>
+    <?php echo("<title>$contreg[0] $page_title</title>"); ?>
 </head>
 <body class="d-flex flex-column">
     <div class="flex-grow-1 flex-shrink-0">
@@ -53,7 +54,7 @@
                 </div>
                 <div class="form-group">
                     <label for="contaddress">Contractor Address</label>
-                    <input type="text" class="form-control" id="contaddress" name="contaddress" required>
+                    <textarea class="form-control" id="contaddress" name="contaddress" rows="3"></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -74,7 +75,6 @@
             </form>
         </div>
     </div>
-    <?php include("../includes/footer.php");?>
     <script>
         if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );

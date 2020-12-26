@@ -17,7 +17,7 @@
         <a class="nav-link bg-danger text-white" href="<?php echo $rsm[1]; ?>"><?php echo $rsm[0]; ?></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link bg-danger text-white" href="<?php echo $empatt[1]; ?>"><?php echo $empatt[0]; ?></a>
+        <a class="nav-link bg-danger text-white" href="<?php echo $empattendance[1]; ?>"><?php echo $empattendance[0]; ?></a>
       </li>
       <li class="nav-item dropdown bg-white">
         <a class="nav-link dropdown-toggle text-dark mx-3" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
@@ -46,8 +46,8 @@
           <a class="dropdown-item" href="<?php echo $contreg[1]; ?>"><?php echo $contreg[0]; ?></a>
           <a class="dropdown-item" href="<?php echo $contreg[3]; ?>"><?php echo $contreg[2]; ?></a>
           <div class="dropdown-header text-dark" style="background-color: rgba(3, 169, 244, 0.3)">Khushboo</div>
-          <a class="dropdown-item" href="<?php echo $khushreg[1]; ?>"><?php echo $khushreg[0]; ?></a>
-          <a class="dropdown-item" href="<?php echo $khushreg[3]; ?>"><?php echo $khushreg[2]; ?></a>
+          <a class="dropdown-item" href="<?php echo $nkreg[1]; ?>"><?php echo $nkreg[0]; ?></a>
+          <a class="dropdown-item" href="<?php echo $nkreg[3]; ?>"><?php echo $nkreg[2]; ?></a>
         </div>
       </li>
      

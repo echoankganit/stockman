@@ -60,16 +60,21 @@
                     <form action="ssf_contractor.php" method="GET">
                         <button type="submit" name="contractor" class="btn btn-lg text-white btn-dark">Contractor Registration</button>
                     </form>
-                    <form action="ssf_new_khushboo.php" method="GET">
+                    <form action="ssf_new_khush.php" method="GET">
                         <button type="submit" name="khushboo" class="btn btn-lg text-white btn-dark">Add New Khushboo</button>
                     </form>
                     <form action="ssf_invoice_form.php" method="POST">
                         <button type="submit" name="invoice" class="btn btn-lg text-black btn-light" disabled>Invoice (Generate PDF)</button>
                     </form>
+                    <form action="ssf_view_party_cb_bb.php" method="POST">
+                        <button type="submit" name="viewpartycbbb" class="btn btn-lg btn-primary">View by Party Details</button>
+                    </form>
+                    <form action="ssf_view_contractor_bill.php" method="POST">
+                        <button type="submit" name="viewcontractorbill" class="btn btn-lg btn-primary">View Contractor Bills</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <?php include("../includes/footer.php");?>
 </body>
 </html>

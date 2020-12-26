@@ -2,20 +2,20 @@
     include('../includes/session.php');
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        //$partyid = mysqli_real_escape_string($db, $_POST['partyid']);
         $pname = mysqli_real_escape_string($db, $_POST['pname']);
         $paddress = mysqli_real_escape_string($db, $_POST['paddress']);
         $pgstin = mysqli_real_escape_string($db, $_POST['pgstin']);
         $pcategory = mysqli_real_escape_string($db, $_POST['pcategory']);
         if (isset($_POST['psubmit'])){
             $sql = "INSERT INTO `ssf_party` (`pname`, `paddress`, `pgstin`, `pcategory`) VALUES ('$pname','$paddress','$pgstin', '$pcategory')";
-            $result = mysqli_query($db,$sql);
-            $sql1 = "SELECT * FROM `ssf_party` ORDER BY `partyid` DESC LIMIT 1";
-            $result1 = mysqli_query($db,$sql1);
+            $result = mysqli_query($db,$sql) or die(mysqli_error($db));
+
+            $sql1 = "SELECT * FROM `ssf_party` ORDER BY `pid` DESC LIMIT 1";
+            $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
             $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
             if($result){
                 echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                (Party Unique ID: '.$row1['partyid'].') <br>Name: <strong>'.$pname.'</strong><br>Address: <strong>'.$paddress.'</strong><br>GSTIN: <strong>'.$pgstin.'</strong><br>Category: <strong>'.$pcategory.'</strong>
+                (Party Unique ID: '.$row1['pid'].') <br>Name: <strong>'.$pname.'</strong><br>Address: <strong>'.$paddress.'</strong><br>GSTIN: <strong>'.$pgstin.'</strong><br>Category: <strong>'.$pcategory.'</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="form-group">
                     <label for="paddress">Party Address</label>
-                    <input type="text" class="form-control" id="paddress" name="paddress">
+                    <textarea class="form-control" id="paddress" name="paddress" rows="3"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="pgstin">GSTIN</label>

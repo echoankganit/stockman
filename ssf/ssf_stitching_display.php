@@ -2,8 +2,9 @@
     include('../includes/sessiononly.php');
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $stid = mysqli_real_escape_string($db, $_POST['vstid']);
+
         $sql1 = "SELECT * FROM `ssf_stitching` WHERE stid='$stid'";
-        $result1 = mysqli_query($db, $sql1);
+        $result1 = mysqli_query($db, $sql1) or die(mysqli_error($db));
     }
     while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC)){
     echo '<form>
@@ -24,7 +25,7 @@
         </div>
         <div class="form-group">
             <label for="vstlocation">Location</label>
-            <input type="text" class="form-control" id="vstlocation" name="vstlocation" value= "'.$row1["stlocation"].'" disabled>
+            <textarea class="form-control" id="vstlocation" name="vstlocation" rows="3" disabled>'.$row1["stlocation"].'</textarea>
         </div>
 
         <hr>

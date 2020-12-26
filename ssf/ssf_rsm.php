@@ -1,66 +1,66 @@
 <?php
 ob_start();
     include("../includes/session.php");
-    //include("includes\header.php");
-    //include("../includes/bg.php");
-    //include("../includes/connection.php");
     include("../includes/allfunctions.php");
     
-    $pname = partyname();
-    $pcategory = partycategory();
+    /* $pname = partyname();
+    $rsmpcategory = partycategory(); */
+    $pidname = partyidname();
     
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $ricetype = mysqli_real_escape_string($db, $_POST['ricetype']);
-        $riceweight = mysqli_real_escape_string($db, $_POST['riceweight']);
-        $units = mysqli_real_escape_string($db, $_POST['units']);
+        $rsmricetype = mysqli_real_escape_string($db, $_POST['rsmricetype']);
+        $rsmriceweight = mysqli_real_escape_string($db, $_POST['rsmriceweight']);
+        $rsmunits = mysqli_real_escape_string($db, $_POST['rsmunits']);
         $rsmentry = mysqli_real_escape_string($db, $_POST['rsmentry']);
-        $pcategory = mysqli_real_escape_string($db, $_POST['pcategory']);
-        $pname = partyname();
+        /* $rsmpcategory = mysqli_real_escape_string($db, $_POST['rsmpcategory']); 
+        $pname = partyname(); */
+        $pidname = partyidname();
         if (isset($_POST['available'])){
             //$pname = partyname();
-            $sql2 = "SELECT SUM(riceweight*units) AS sumrqi FROM `ssf_rsm` WHERE `ricetype`='$ricetype' AND `riceweight`='$riceweight' AND `rsmentry`='in'";
-            $sql3 = "SELECT SUM(riceweight*units) AS sumrqo FROM `ssf_rsm` WHERE `ricetype`='$ricetype' AND `riceweight`='$riceweight' AND `rsmentry`='out'";
+            $sql2 = "SELECT SUM(rsmriceweight*rsmunits) AS sumrqi FROM `ssf_rsm` WHERE `rsmricetype`='$rsmricetype' AND `rsmriceweight`='$rsmriceweight' AND `rsmentry`='in'";
+            $sql3 = "SELECT SUM(rsmriceweight*rsmunits) AS sumrqo FROM `ssf_rsm` WHERE `rsmricetype`='$rsmricetype' AND `rsmriceweight`='$rsmriceweight' AND `rsmentry`='out'";
     
-            $result2 = mysqli_query($db,$sql2);
-            $result3 = mysqli_query($db,$sql3);
+            $result2 = mysqli_query($db,$sql2) or die(mysqli_error($db));
+            $result3 = mysqli_query($db,$sql3) or die(mysqli_error($db));
             $row2 = mysqli_fetch_assoc($result2); 
             $row3 = mysqli_fetch_assoc($result3);
             $rowin = $row2['sumrqi'];
             $rowout = $row3['sumrqo'];
             $rowtotal = $rowin-$rowout;
-            echo'<div class="container">
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            //echo'<div class="container">
+            /* <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-            </button>';
-            echo 'Page will refresh after 5 sec automatically';
-            echo '</div></div>';
+            </button>'; */
+            //echo 'Page will refresh after 5 sec automatically';
+            //echo '</div></div>';
             echo'<div class="container">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>';
             if($rowin==0)
-                echo $ricetype." ".$riceweight." KG in = 0 KG Total <br>";
+                echo $rsmricetype." ".$rsmriceweight." KG in = 0 KG Total <br>";
             else
-                echo $ricetype." ".$riceweight." KG in = ".$rowin." KG Total and have ".$rowin/$riceweight." bag(s). <br>";
+                echo $rsmricetype." ".$rsmriceweight." KG in = ".$rowin." KG Total and have ".$rowin/$rsmriceweight." bag(s). <br>";
             if($rowout==0)
-                echo $ricetype." ".$riceweight." KG out = 0 KG Total <br>";
+                echo $rsmricetype." ".$rsmriceweight." KG out = 0 KG Total <br>";
             else
-                echo $ricetype." ".$riceweight." KG out = ".$rowout." KG Total and have ".$rowout/$riceweight." bag(s). <br>";
-            echo "<strong>Available Stock = ".$rowtotal." KG Total and have ".$rowtotal/$riceweight." bag(s).</strong>";
+                echo $rsmricetype." ".$rsmriceweight." KG out = ".$rowout." KG Total and have ".$rowout/$rsmriceweight." bag(s). <br>";
+            echo "<strong>Available Stock = ".$rowtotal." KG Total and have ".$rowtotal/$rsmriceweight." bag(s).</strong>";
             echo '</div></div>';
-            header("refresh: 5");
+            //header("refresh: 5");
         }
-        else if($pcategory!='Select'){
-            $pname = mysqli_real_escape_string($db, $_POST['pname']);
-            $array =  explode('-', $pname);
+        else {
+            $rsmpidname = mysqli_real_escape_string($db, $_POST['rsmpdetails']);
+            $array =  explode('-', $rsmpidname);
             if (isset($_POST['rsmsubmit'])){
-                $sql = "INSERT INTO `ssf_rsm` (`ricetype`, `riceweight`, `units`, `rsmentry`, `pid`, `pname`, `pcategory`) VALUES ('$ricetype','$riceweight','$units','$rsmentry','$array[0]','$array[1]','$pcategory')";
-                $pname = partyname();
-                $pcategory = partycategory();
-                $result = mysqli_query($db,$sql);
-                $sql1 = "SELECT * FROM `ssf_rsm` ORDER BY `entryrno` DESC LIMIT 1";
+                $sql = "INSERT INTO `ssf_rsm` (`rsmricetype`, `rsmriceweight`, `rsmunits`, `rsmentry`, `rsmpid`, `rsmpname`) VALUES ('$rsmricetype','$rsmriceweight','$rsmunits','$rsmentry','$array[0]','$array[1]')";
+                /* $pname = partyname();
+                $rsmpcategory = partycategory(); */
+                $pidname = partyidname();
+                $result = mysqli_query($db,$sql) or die(mysqli_error($db));
+                $sql1 = "SELECT * FROM `ssf_rsm` ORDER BY `rsmid` DESC LIMIT 1";
 
                 //implode(',',$pname);
                 /*To get the greatest id:
@@ -69,12 +69,12 @@ ob_start();
                 SELECT * FROM mytable WHERE id = ???*/
                 /*Or, you could do it all in one query:
                 SELECT * FROM mytable ORDER BY id DESC LIMIT 1*/
-                $result1 = mysqli_query($db,$sql1);
+                $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
                 $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
-                $totalweight=$riceweight*$units;
+                $totalweight=$rsmriceweight*$rsmunits;
                 if($result){
                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    (Entry No.: '.$row1['entryrno'].') <strong>'.$riceweight.' KG x '.$units.' units = '.$totalweight.' KG '.$rsmentry.'</strong> Under '.$ricetype.' to '.$row1['pname'].'
+                    (Entry No.: '.$row1['rsmid'].') <strong>'.$rsmriceweight.' KG x '.$rsmunits.' units = '.$totalweight.' KG '.$rsmentry.'</strong> Under '.$rsmricetype.' to '.$row1['rsmpname'].'
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -82,11 +82,11 @@ ob_start();
                 }
             }
         }
-        else {
+        /* else {
             echo 'Page Refresh after 3 sec <br>';
             echo 'Choose Party Category and then again submit the form.';
             header("refresh: 3");
-        }
+        } */
     }
     ob_end_flush();
 ?>
@@ -112,7 +112,7 @@ ob_start();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <!--https://www.tutorialrepublic.com/faq/populate-state-dropdown-based-on-selection-in-country-dropdown-using-jquery.php#:~:text=Answer%3A%20Use%20the%20jQuery%20ajax,while%20filling%20the%20registration%20form.-->
     
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         $(document).ready(function(){
             $("select.partycategory").change(function(){
@@ -126,7 +126,8 @@ ob_start();
                 });
             });
         });
-    </script>
+    </script> -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous"></script>
     
     <!--<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -149,13 +150,13 @@ ob_start();
 <body class="d-flex flex-column">
     <div class="flex-grow-1 flex-shrink-0">
         <div class="d-flex justify-content-center">
-            <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($rsm[0]); ?></p>
+            <p class="h3 bg-light px-4 py-2" style="border-radius: 25px"><?php echo strtoupper($rsm[0]); ?></p>
         </div>
         <div class="container col-4">
             <form method="POST" action="">
                 <div class="form-group">
-                    <label for="ricetype">Rice Type</label>
-                    <select class="form-control" id="ricetype1" name="ricetype">
+                    <label for="rsmricetype">Rice Type</label>
+                    <select class="form-control" id="rsmricetype1" name="rsmricetype">
                     <option value="Loose">Loose</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
@@ -173,8 +174,8 @@ ob_start();
                     </select>
                 </div>-->
                 <div class="form-group">
-                    <label for="riceweight">weight</label>
-                    <select class="form-control" id="weight1" name="riceweight">
+                    <label for="rsmriceweight">weight</label>
+                    <select class="form-control" id="weight1" name="rsmriceweight">
                     <option value="1">1 KG</option>
                     <option value="5">5 KG</option>
                     <option value="10">10 KG</option>
@@ -186,12 +187,12 @@ ob_start();
                 </div>
                 <div class="form-row">
                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <label for="units">Units</label>
-                        <input type="number" class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12" id="units" name="units" min="1" value="1">
+                        <label for="rsmunits">Units</label>
+                        <input type="number" class="form-control" id="rsmunits" name="rsmunits" min="1" value="1">
                     </div>
                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div>Entry</div>
-                        <div class="form-check form-check-inline py-2">
+                        <div class="ml-5">Entry</div>
+                        <div class="form-check form-check-inline py-2 ml-5">
                             <input class="form-check-input" type="radio" name="rsmentry" id="rsmin" value="in" checked>
                             <label class="form-check-label" for="rsmin">
                                 In
@@ -205,15 +206,15 @@ ob_start();
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="pcategory">Party Catgory</label>
-                    <select class="partycategory form-control" id="partycategory" name="pcategory">
+               <!--  <div class="form-group">
+                    <label for="rsmpcategory">Party Catgory</label>
+                    <select class="partycategory form-control" id="partycategory" name="rsmpcategory">
                     <option value='Select'>Select</option>
-                    <?php foreach($pcategory as $item){
-                        echo "<option value='$item'>$item</option>";
+                    <?php foreach($rsmpcategory as $item){
+                        //echo "<option value='$item'>$item</option>";
                     }?>
                     </select>
-                </div>
+                </div> -->
                 <!--<div class="form-group">
                     <label for="pname">Party Name</label>
                     <select class="partyname form-control" id="partyname" name="pname">
@@ -240,8 +241,17 @@ ob_start();
                         </tr>
                     </table>
                 </div>-->
-                <div id="partyname">
+                <!-- <div id="partyname">
 
+                </div> -->
+                <div class="form-group">
+                    <label for="rsmpdetails">Party Details</label>
+                    <select class="rsmpdetails form-control" id="rsmpdetails" name="rsmpdetails">
+                        <!--<option value='Select'>Select</option>;-->
+                        <?php foreach($pidname as $detail){
+                            echo "<option value='$detail'>$detail</option>";
+                        }?>
+                    </select>
                 </div>
                 <div class="d-flex justify-content-center mt-3">
                     <button type="submit" class="btn btn-primary mr-3" name="rsmsubmit" id="rsmsubmit">Submit</button>
@@ -259,8 +269,8 @@ ob_start();
         <div class="col">
             <form method="GET" action="ssf_rs_view.php">
                 <div class="form-group">
-                    <label for="ricetypeview">Rice Type</label>
-                    <select class="form-control" id="ricetypeview" name="ricet">
+                    <label for="rsmricetypeview">Rice Type</label>
+                    <select class="form-control" id="rsmricetypeview" name="rsmricet">
                     <option value="Loose">Loose</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
@@ -269,14 +279,14 @@ ob_start();
                     <option value="E">E</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary" name="ricetypeview">View</button>
+                <button type="submit" class="btn btn-primary" name="rsmricetypeview">View</button>
             </form>
         </div>
         <div class="col">
             <form method="GET" action="ssf_rs_view.php">
                 <div class="form-group">
-                    <label for="riceweight">weight</label>
-                    <select class="form-control" id="riceweightview" name="ricew">
+                    <label for="rsmriceweight">weight</label>
+                    <select class="form-control" id="rsmriceweightview" name="rsmricew">
                     <option value="1">1 KG</option>
                     <option value="5">5 KG</option>
                     <option value="10">10 KG</option>
@@ -286,7 +296,7 @@ ob_start();
                     <option value="60">60 KG</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary" name="riceweightview">View</button>
+                <button type="submit" class="btn btn-primary" name="rsmriceweightview">View</button>
             </form>
         </div>
         <div class="col">
@@ -301,7 +311,7 @@ ob_start();
     <script>
         $(document).ready(function(){
             // Initialize select2
-            $("#partycategory").select2();
+            $("#rsmpdetails").select2();
         });
     </script>
 </body>

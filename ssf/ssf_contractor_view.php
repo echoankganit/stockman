@@ -1,8 +1,8 @@
 <?php
     include('../includes/session.php');
+
     $sql1 = "SELECT * FROM `ssf_contractor`";
-    $result1 = mysqli_query($db,$sql1);
-    $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
+    $result1 = mysqli_query($db,$sql1)  or die(mysqli_error($db));
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
  
     <link rel="stylesheet" href="../includes/css/design.css">
+    <link rel="stylesheet" href="../includes/css/tabledesign.css">
     
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -81,10 +82,9 @@
 
                 <form action="ssf_contractor_edit.php" method="POST">
                     <div class="modal-body">
-                        <input type="hidden" name="econtid" id="econtid">
                         <div class="form-group">
-                            <label for="econtid1">Contractor ID</label>
-                            <input type="text" class="form-control" id="econtid1" name="econtid1" disabled>
+                            <label for="econtid">Contractor ID</label>
+                            <input type="text" class="form-control" id="econtid" name="econtid" readonly>
                         </div>
                         <div class="form-group">
                             <label for="econtname">Contractor Name</label>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="form-group">
                             <label for="econtaddress">Contractor Address</label>
-                            <input type="text" class="form-control" id="econtaddress" name="econtaddress" required>
+                            <textarea class="form-control" id="econtaddress" name="econtaddress" rows="3"></textarea>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -135,7 +135,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
-                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes !! Delete it. </button>
+                        <button type="submit" name="deletedata" class="btn btn-danger"> Yes !! Delete it. </button>
                     </div>
                 </form>
 
@@ -148,7 +148,7 @@
     <div class="d-flex justify-content-center mb-3">
         <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($contreg[2]); ?></p>
     </div>
-    <div class="container">
+    <div class="mx-4">
     <table id="example" class="table table-striped table-bordered hover display" style="width:100%">
             <thead>
                 <tr class="bg-dark text-white">
@@ -190,6 +190,14 @@
     <script>
         $(document).ready(function() {
         var table = $('#example').DataTable( {
+            "columns": [
+                {"width": "10%"},
+                {"width": "18%"},
+                {"width": "30%"},
+                {"width": "15%"},
+                {"width": "13%"},
+                {"width": "14%"}
+            ],
             "order": [[ 0, "desc" ]],
             select: {
                 items: 'row'
@@ -285,7 +293,6 @@
                 }).get();
                 console.log(data);
                 $('#econtid').val(data[0]);
-                $('#econtid1').val(data[0]);
                 $('#econtname').val(data[1]);
                 $('#econtaddress').val(data[2]);
                 $('#econtppp').val(data[3]);
@@ -293,6 +300,5 @@
             });
         });
     </script>
-    <?php include("../includes/footer.php");?>
 </body>
 </html>

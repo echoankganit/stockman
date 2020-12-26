@@ -14,9 +14,10 @@
             if (isset($_POST['masubmit'])){
                 //$sql = "INSERT INTO `ssf_majdoori` (`madate`, `stunits`, `stcontractor`) VALUES ('$madate','$stunits','$stcontractor')";
                 $sql = "INSERT INTO `ssf_majdoori` (`madate`, `maunits`, `malocation`, `macontid`, `macontname`) VALUES ('$madate','$maunits','$malocation','$array[0]','$array[1]')";
-                $result = mysqli_query($db,$sql);
+                $result = mysqli_query($db,$sql) or die(mysqli_error($db));
+                
                 $sql1 = "SELECT * FROM `ssf_majdoori` ORDER BY `maid` DESC LIMIT 1";
-                $result1 = mysqli_query($db,$sql1);
+                $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
                 $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
                 if($result){
                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -54,7 +55,7 @@
 <body class="d-flex flex-column">
     <div class="flex-grow-1 flex-shrink-0">
         <div class="d-flex justify-content-center">
-            <p class="h2 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($majdoori[0]); ?></p>
+            <p class="h3 bg-light px-4 py-2" style="border-radius: 25px"><?php echo strtoupper($majdoori[0]); ?></p>
         </div>
         <div class="container col-4">
             <form method="POST" action="">
@@ -74,7 +75,7 @@
                 </div>
                 <div class="form-group">
                     <label for="malocation">Location</label>
-                    <input type="text" class="form-control" id="malocation" name="malocation" required>
+                    <textarea class="form-control" id="malocation" name="malocation" rows="3"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="macontractor">Contractor Name</label>

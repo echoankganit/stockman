@@ -1,8 +1,8 @@
 <?php
     include('../includes/session.php');
+
     $sql1 = "SELECT * FROM `ssf_party`";
     $result1 = mysqli_query($db,$sql1);
-    $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
  
     <link rel="stylesheet" href="../includes/css/design.css">
+    <link rel="stylesheet" href="../includes/css/tabledesign.css">
     
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -39,7 +40,7 @@
     <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.colVis.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
 
-    <?php echo("<title>Party View $page_title</title>"); ?>
+    <?php echo("<title>$partyreg[2] $page_title</title>"); ?>
 </head>
 <body>
     <!-- VIEW POP UP FORM (Bootstrap MODAL) -->
@@ -81,10 +82,9 @@
 
                 <form action="ssf_party_edit.php" method="POST">
                     <div class="modal-body">
-                    <input type="hidden" name="epid" id="epid">
                         <div class="form-group">
-                            <label for="pname">Party ID</label>
-                            <input type="text" class="form-control" name="epid" id="epid1" disabled>
+                            <label for="epid">Party ID</label>
+                            <input type="text" class="form-control" name="epid" id="epid" readonly>
                         </div>
                         <div class="form-group">
                             <label for="pname">Party Name</label>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="form-group">
                             <label for="paddress">Party Address</label>
-                            <input type="text" class="form-control" id="epaddress" name="epaddress">
+                            <textarea class="form-control" id="epaddress" name="epaddress" rows="3"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="pgstin">GSTIN</label>
@@ -136,7 +136,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
-                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes !! Delete it. </button>
+                        <button type="submit" name="deletedata" class="btn btn-danger"> Yes !! Delete it. </button>
                     </div>
                 </form>
 
@@ -149,7 +149,7 @@
     <div class="d-flex justify-content-center mb-3">
         <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($partyreg[2]); ?></p>
     </div>
-    <div class="container">
+    <div class="mx-4">
     <table id="example" class="table table-striped table-bordered hover display" style="width:100%">
             <thead>
                 <tr class="bg-dark text-white">
@@ -174,7 +174,7 @@
                 <?php 
                     foreach($result1 as $row){
                         echo'<tr class="bg-light">
-                        <td>'.$row['partyid'].'</td>
+                        <td>'.$row['pid'].'</td>
                         <td>'.$row['pname'].'</td>
                         <td>'.$row['paddress'].'</td>
                         <td>'.$row['pgstin'].'</td>
@@ -191,6 +191,14 @@
     <script>
         $(document).ready(function() {
         var table = $('#example').DataTable( {
+            "columns": [
+                {"width": "8%"},
+                {"width": "18%"},
+                {"width": "30%"},
+                {"width": "15%"},
+                {"width": "15%"},
+                {"width": "14%"}
+            ],
             "order": [[ 0, "desc" ]],
             select: {
                 items: 'row'
@@ -286,7 +294,6 @@
                 }).get();
                 console.log(data);
                 $('#epid').val(data[0]);
-                $('#epid1').val(data[0]);
                 $('#epname').val(data[1]);
                 $('#epaddress').val(data[2]);
                 $('#epgstin').val(data[3]);
@@ -294,6 +301,5 @@
             });
         });
     </script>
-    <?php include("../includes/footer.php");?>
 </body>
 </html>

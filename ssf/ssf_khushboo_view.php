@@ -3,7 +3,7 @@
     include('../includes/allfunctions.php');
 
     $sql1 = "SELECT * FROM `ssf_khushboo`";
-    $result1 = mysqli_query($db,$sql1);
+    $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
 ?>
 <!doctype html>
 <html lang="en">
@@ -50,7 +50,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">View Rice Stock Data</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">View Khushboo Entry Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -89,41 +89,51 @@
                             <label for="ekid">K ID</label>
                             <input type="text" class="form-control" id="ekid" name="ekid" readonly>
                         </div>
+                        <!-- <div class="form-row"> -->
+                            <div class="form-group">
+                            <label for="ekweight">Weight</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="ekweight" name="ekweight" min="0.01" step="0.01" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">KG</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <label for="kunits">Units</label>
+                                <input type="number" class="form-control" min="1" id="ekunits" name="ekunits" placeholder="Units" required>
+                            </div> -->
+                        <!-- </div> -->
                         <div class="form-row">
-                            <div class="form-group col-lg-5 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <label for="ekdate">Date</label>
-                                <input type="date" class="form-control" id="ekdate" name="ekdate">
+                                <input type="date" class="form-control" id="ekdate" name="ekdate" value="<?php echo date('Y-m-d') ?>">
                             </div>
-                            <div class="form-group col-lg-4 col-md-3 col-sm-12 col-xs-12">
-                                <label for="ekunits">Units</label>
-                                <input type="number" class="form-control" min=1 value=1 id="ekunits" name="ekunits" required>
-                            </div>
-                            <div class="form-group col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <div>Entry</div>
                                 <div class="form-check form-check-inline py-2">
-                                    <input class="form-check-input" type="radio" name="ekentry" id="ekin" value="in">
-                                    <label class="form-check-label" for="ersmin">
+                                    <input class="form-check-input" type="radio" name="ekentry" id="ekin" value="in" checked>
+                                    <label class="form-check-label" for="rsmin">
                                         In
                                     </label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="ekentry" id="ekout" value="out">
-                                    <label class="form-check-label" for="ersmout">
+                                    <label class="form-check-label" for="rsmout">
                                         Out
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        
-                        <p class="text-danger">If you want to change Linked Khushboo or Party details, please enter the Unique ID of Khushboo or party else leave as it is.</p>
+                        <p class="text-white bg-danger p-3">If you want to change Linked Khushboo or Party details, please enter the Unique ID of Khushboo or party else leave as it is.</p>
                         <div class="form-row">
                             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <label for="ekhusbooid">New Khushboo ID</label>
-                                <input type="number" min=0 step=1 class="form-control" id="ekhushbooid" name="ekhushbooid">
+                                <label for="eknkid">New Khushboo ID</label>
+                                <input type="number" min=0 step=1 class="form-control" id="eknkid" name="eknkid">
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <label for="epid">New Party ID</label>
-                                <input type="number" min=0 step=1 class="form-control" id="epid" name="epid">
+                                <label for="ekpid">New Party ID</label>
+                                <input type="number" min=0 step=1 class="form-control" id="ekpid" name="ekpid">
                             </div>
                         </div>
 
@@ -188,7 +198,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Delete Rice Stock Data </h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Khushboo Entry</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -201,10 +211,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
-                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes !! Delete it. </button>
+                        <button type="submit" name="deletedata" class="btn btn-danger"> Yes !! Delete it. </button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
@@ -214,35 +223,37 @@
     <div class="d-flex justify-content-center mb-3">
         <p class="h3 bg-light px-4 py-2" style="border-radius: 25px"><?php echo strtoupper($khushboo[2]); ?></p>
     </div>
-    <div class="container">
+    <div class="mx-4">
         <table id="example" class="table table-striped table-bordered hover display" style="width:100%">
             <thead>
                 <tr class="bg-dark text-white">
                     <th>K ID</th>
+                    <th>Weight</th>
+                   <!--  <th>Units</th> -->
+                    <th>Entry Date</th>
+                    <th>Entry</th>
                     <th>Khushboo ID</th>
                     <!--<th>Khushboo Name</th>
                     <th>Khushboo Quality</th>
                     <th>Party Category</th>-->
                     <th>Party ID</th>
                     <!--<th>Party Name</th>-->
-                    <th>Entry Date</th>
-                    <th>Units</th>
-                    <th>Entry</th>
                     <th>Operation</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <th>K ID</th>
+                    <th>Weight</th>
+                    <!-- <th>Units</th> -->
+                    <th>Entry Date</th>
+                    <th>Entry</th>
                     <th>Khushboo ID</th>
                     <!--<th>Khushboo Name</th>
                     <th>Khushboo Quality</th>
                     <th>Party Category</th>-->
                     <th>Party ID</th>
                     <!--<th>Party Name</th>-->
-                    <th>Entry Date</th>
-                    <th>Units</th>
-                    <th>Entry</th>
                 </tr>
             </tfoot>
             <tbody>
@@ -250,12 +261,12 @@
                     foreach($result1 as $row){
                         echo'<tr class="bg-light">
                         <td>'.$row['kid'].'</td>
-                        <td>'.$row['khushbooid'].'</td>
-                        <td>'.$row['pid'].'</td>
+                        <td>'.$row['kweight'].'</td>
                         <td>'.$row['kdate'].'</td>
-                        <td>'.$row['kunits'].'</td>
                         <td>'.$row['kentry'].'</td>
-                        <td><i class="far fa-eye viewbtn text-success"></i>
+                        <td>'.$row['knkid'].'</td>
+                        <td>'.$row['kpid'].'</td>
+                        <td><i class="far fa-eye viewbtn text-success pl-5"></i>
                         <i class="far fa-edit editbtn text-primary px-3"></i>
                         <i class="far fa-trash-alt text-danger deletebtn" id="deletebtn"></i>
                         </tr>';
@@ -364,9 +375,13 @@
                 }).get();
                 console.log(data);
                 $('#ekid').val(data[0]);
-                $('#ekhushbooid').val(data[1]);
-                $('#epid').val(data[2]);
-                $('#ekdate').val(data[3]);
+                $('#ekweight').val(data[1]);
+                //$('#ekunits').val(data[2]);
+                $('#ekdate').val(data[2]);
+                $('[name="ekentry"]').val([data[3]]);
+                $('#eknkid').val(data[4]);
+                $('#ekpid').val(data[5]);
+                
                 //var jrsmentry=data[4];
                 //console.log(data[4]);
                 //$('#ersme').val(data[4]);
@@ -374,8 +389,6 @@
                 //$("input[name='ersmentry']:checked").val(data[4]);
                 //$('#ersmentry').val(RadeoButtonStatusCheck);
                 //$('input[name=ersmentry]:checked').val();
-                $('#ekunits').val(data[4]);
-                $('[name="ekentry"]').val([data[5]]);
             });
         });
     </script>

@@ -6,12 +6,12 @@
 	$partyreg = array("Party Registration", "../ssf/ssf_party.php", "Party View", "../ssf/ssf_party_view.php");
 	$empreg = array("Employee Registration", "../ssf/ssf_employee.php", "Employee View", "../ssf/ssf_employee_view.php");
 	$contreg = array("Contractor Registration", "../ssf/ssf_contractor.php", "Contractor View", "../ssf/ssf_contractor_view.php");
-	$khushreg = array("Add New Khushboo", "../ssf/ssf_new_khushboo.php", "Khushboo View", "../ssf/ssf_new_khush_view.php");
+	$nkreg = array("Add New Khushboo", "../ssf/ssf_new_khush.php", "New Khushboo View", "../ssf/ssf_new_khush_view.php");
 
 	$rsm = array("Rice Stock Management", "../ssf/ssf_rsm.php", "Rice Stock View", "../ssf/ssf_rsm_view.php");
-	$empatt = array("Employee Attendance", "../ssf/ssf_attendance.php");
-	$cashbook = array("Cash Book", "../ssf/ssf_cashbook.php");
-	$bankbook = array("Bank Book", "../ssf/ssf_bankbook.php");
+	$empattendance = array("Employee Attendance", "../ssf/ssf_attendance.php", "Attendance View", "../ssf/ssf_attendance_view.php");
+	$cashbook = array("Cashbook", "../ssf/ssf_cashbook.php", "Cashbook View", "../ssf/ssf_cashbook_view.php");
+	$bankbook = array("Bankbook", "../ssf/ssf_bankbook.php", "Bankbook View", "../ssf/ssf_bankbook_view.php");
 
 	$khushboo = array("Khushboo Management", "../ssf/ssf_khushboo.php", "Khushboo View", "../ssf/ssf_khushboo_view.php");
 	$stitching = array("Stitching Management", "../ssf/ssf_stitching.php", "Stitching View", "../ssf/ssf_stitching_view.php");
@@ -19,6 +19,8 @@
 
 	$logout = array("Logout", "../includes/logout.php");
 	$pcategories = array("Bank Accounts","Bank OCC A/c","Bank OD A/c", "Branch / Divisons", "Capital Account", "Cash-in-hand", "Creditors - Brokers", "Creditors - Others", "Creditors - Rent", "Current Assets", "Current Liabilities", "Deposits (Asset)", "Direct Expenses", "Direct Incomes", "Duties and Taxes", "Expenses (Direct)", "Expenses (Indirect)", "Expenses Payable", "Fixed Assets", "Government Dues", "Income (Direct)", "Income (Indirect)", "Indirect Expenses", "Indirect Incomes", "Investments", "Loans and Advances (Asset)", "Loans (Liability)", "Misc. Expenses (ASSET)", "Provisions", "Purchase Accounts", "Reserves and Surplus", "Retained Earnings", "Sales Accounts", "Secured Loans", "Stock-in-hand", "Sundry Creditors", "Sundry Debtors", "Suspense A/c", "Unsecured Loans");
+
+	$viewpartycbbb = array("Party Wise Cash Book View");
 ?>
 <style type="text/css">
 body {

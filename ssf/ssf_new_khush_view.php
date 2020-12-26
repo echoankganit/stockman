@@ -1,7 +1,8 @@
 <?php
     include('../includes/session.php');
     $sql1 = "SELECT * FROM `ssf_new_khushboo`";
-    $result1 = mysqli_query($db,$sql1);
+
+    $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
     $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
 ?>
 <!doctype html>
@@ -39,7 +40,7 @@
     <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.colVis.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
 
-    <?php echo("<title>$khushreg[2] $page_title</title>"); ?>
+    <?php echo("<title>$nkreg[2] $page_title</title>"); ?>
 </head>
 <body>
     <!-- VIEW POP UP FORM (Bootstrap MODAL) -->
@@ -55,7 +56,7 @@
                 </div>
 
                 <form>
-                    <div class="modal-body" id="viewkhush">
+                    <div class="modal-body" id="viewnk">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> CLOSE </button>
@@ -81,18 +82,17 @@
 
                 <form action="ssf_new_khush_edit.php" method="POST">
                     <div class="modal-body">
-                        <input type="hidden" name="ekhushid" id="ekhushid">
                         <div class="form-group">
-                            <label for="ekhushid1">khushboo ID</label>
-                            <input type="text" class="form-control" id="ekhushid1" name="ekhushid1" disabled>
+                            <label for="enkid">khushboo ID</label>
+                            <input type="text" class="form-control" id="enkid" name="enkid" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="ekhushname">Khushboo Name</label>
-                            <input type="text" class="form-control" id="ekhushname" name="ekhushname" required>
+                            <label for="enkname">Khushboo Name</label>
+                            <input type="text" class="form-control" id="enkname" name="enkname" required>
                         </div>
                         <div class="form-group">
-                            <label for="ekhushquality">Khushboo Quality</label>
-                            <input type="text" class="form-control" id="ekhushquality" name="ekhushquality" required>
+                            <label for="enkquality">Khushboo Quality</label>
+                            <input type="text" class="form-control" id="enkquality" name="enkquality" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -119,12 +119,12 @@
 
                 <form action="ssf_new_khush_delete.php" method="POST">
                     <div class="modal-body">
-                        <input type="hidden" name="dkhushid" id="dkhushid">
+                        <input type="hidden" name="dnkid" id="dnkid">
                         <h4> Do you want to Delete this Data ??</h4>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
-                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes !! Delete it. </button>
+                        <button type="submit" name="deletedata" class="btn btn-danger"> Yes !! Delete it. </button>
                     </div>
                 </form>
 
@@ -135,7 +135,7 @@
 
     <!-- /////////////////////////// -->
     <div class="d-flex justify-content-center mb-3">
-        <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($khushreg[2]); ?></p>
+        <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($nkreg[2]); ?></p>
     </div>
     <div class="container">
     <table id="example" class="table table-striped table-bordered hover display" style="width:100%">
@@ -158,9 +158,9 @@
                 <?php 
                     foreach($result1 as $row){
                         echo'<tr class="bg-light">
-                        <td>'.$row['khushid'].'</td>
-                        <td>'.$row['khushname'].'</td>
-                        <td>'.$row['khushquality'].'</td>
+                        <td>'.$row['nkid'].'</td>
+                        <td>'.$row['nkname'].'</td>
+                        <td>'.$row['nkquality'].'</td>
                         <td><i class="far fa-eye viewbtn text-success pl-5"></i>
                         <i class="far fa-edit editbtn text-primary px-3"></i>
                         <i class="far fa-trash-alt text-danger deletebtn" id="deletebtn"></i>
@@ -226,14 +226,14 @@
                     return $(this).text();
                 }).get();
                 console.log(data);
-                var vkhushid=data[0];
+                var vnkid=data[0];
                 //$('#eempid').val(data[0]);
                 $.ajax({ //create an ajax request to display.php
                     method: "POST",
                     url: "../ssf/ssf_new_khush_display.php",
-                    data: {vkhushid:vkhushid}, //expect html to be returned                
+                    data: {vnkid:vnkid}, //expect html to be returned                
                     success: function (data) {
-                        $("#viewkhush").html(data);
+                        $("#viewnk").html(data);
                         $('#viewmodal').modal('show');
                         //alert(response);
                     }
@@ -252,7 +252,7 @@
                     return $(this).text();
                 }).get();
                 console.log(data);
-                $('#dkhushid').val(data[0]);
+                $('#dnkid').val(data[0]);
             });
         });
     </script>
@@ -267,10 +267,9 @@
                     return $(this).text();
                 }).get();
                 console.log(data);
-                $('#ekhushid').val(data[0]);
-                $('#ekhushid1').val(data[0]);
-                $('#ekhushname').val(data[1]);
-                $('#ekhushquality').val(data[2]);
+                $('#enkid').val(data[0]);
+                $('#enkname').val(data[1]);
+                $('#enkquality').val(data[2]);
             });
         });
     </script>

@@ -1,8 +1,8 @@
 <?php
     include('../includes/session.php');
     $sql1 = "SELECT * FROM `ssf_employee`";
+
     $result1 = mysqli_query($db,$sql1);
-    $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
  
     <link rel="stylesheet" href="../includes/css/design.css">
-    
+    <link rel="stylesheet" href="../includes/css/tabledesign.css">
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -81,10 +81,9 @@
 
                 <form action="ssf_employee_edit.php" method="POST">
                     <div class="modal-body">
-                        <input type="hidden" name="eempid" id="eempid">
                         <div class="form-group">
-                            <label for="eempid1">Employee ID</label>
-                            <input type="text" class="form-control" name="eempid1" id="eempid1" disabled>
+                            <label for="eempid">Employee ID</label>
+                            <input type="text" class="form-control" name="eempid" id="eempid" readonly>
                         </div>
                         <div class="form-group">
                             <label for="eempname">Employee Name</label>
@@ -92,7 +91,7 @@
                         </div>
                         <div class="form-group">
                             <label for="eempaddress">Employee Address</label>
-                            <input type="text" class="form-control" id="eempaddress" name="eempaddress" required>
+                            <textarea class="form-control" id="eempaddress" name="eempaddress" rows="3" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="eempdate">Date of Registration</label>
@@ -128,7 +127,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
-                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes !! Delete it. </button>
+                        <button type="submit" name="deletedata" class="btn btn-danger"> Yes !! Delete it. </button>
                     </div>
                 </form>
 
@@ -141,7 +140,7 @@
     <div class="d-flex justify-content-center mb-3">
         <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($empreg[2]); ?></p>
     </div>
-    <div class="container">
+    <div class="mx-4">
     <table id="example" class="table table-striped table-bordered hover design" style="width:100%">
             <thead>
                 <tr class="bg-dark text-white">
@@ -168,7 +167,7 @@
                         <td>'.$row['empname'].'</td>
                         <td>'.$row['empaddress'].'</td>
                         <td>'.$row['empdate'].'</td>
-                        <td><i class="far fa-eye viewbtn text-success pl-5"></i>
+                        <td><i class="far fa-eye viewbtn text-success pl-3"></i>
                         <i class="far fa-edit editbtn text-primary px-3"></i>
                         <i class="far fa-trash-alt text-danger deletebtn" id="deletebtn"></i>
                         </tr>';
@@ -180,6 +179,13 @@
     <script>
         $(document).ready(function() {
         var table = $('#example').DataTable( {
+            "columns": [
+                {"width": "8%"},
+                {"width": "18%"},
+                {"width": "50%"},
+                {"width": "10%"},
+                {"width": "14%"}
+            ],
             "order": [[ 0, "desc" ]],
             select: {
                 items: 'row'
@@ -275,13 +281,11 @@
                 }).get();
                 console.log(data);
                 $('#eempid').val(data[0]);
-                $('#eempid1').val(data[0]);
                 $('#eempname').val(data[1]);
                 $('#eempaddress').val(data[2]);
                 $('#eempdate').val(data[3]);
             });
         });
     </script>
-    <?php include("../includes/footer.php");?>
 </body>
 </html>

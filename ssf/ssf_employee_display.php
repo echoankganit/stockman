@@ -2,8 +2,9 @@
     include('../includes/sessiononly.php');
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $empid = mysqli_real_escape_string($db, $_POST['vempid']);
+
         $sql1 = "SELECT * FROM `ssf_employee` WHERE empid='$empid'";
-        $result1 = mysqli_query($db, $sql1);
+        $result1 = mysqli_query($db, $sql1) or die(mysqli_error($db));
     }
     while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC)){
     echo '<form>
@@ -17,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label for="vempaddress">Employee Address</label>
-                <input type="text" class="form-control" id="vempaddress" name="vempaddress" value= "'.$row1["empaddress"].'" disabled>
+                <textarea class="form-control" id="vempaddress" name="vempaddress" rows="3" readonly>'.htmlspecialchars($row1["empaddress"]).'</textarea>
             </div>
             <div class="form-group">
                 <label for="vempdate">Date of Registration</label>
