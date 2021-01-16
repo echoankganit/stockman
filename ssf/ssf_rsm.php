@@ -265,44 +265,44 @@ ob_start();
             </div>
         </div>
     </div>
-    <div class="row bg-secondary">
-        <div class="col">
-            <form method="GET" action="ssf_rs_view.php">
-                <div class="form-group">
-                    <label for="rsmricetypeview">Rice Type</label>
-                    <select class="form-control" id="rsmricetypeview" name="rsmricet">
-                    <option value="Loose">Loose</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary" name="rsmricetypeview">View</button>
-            </form>
+    <form method="GET" action="ssf_view_rs.php">
+        <div class="row bg-secondary">
+            <div class="col">
+                    <div class="form-group">
+                        <label for="rsmricetypeview">Rice Type</label>
+                        <select class="form-control" id="rsmricetypeview" name="rsmricet">
+                        <option value="Loose">Loose</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="rsmricetypeview">View</button>
+                </form>
+            </div>
+            <div class="col">
+                    <div class="form-group">
+                        <label for="rsmriceweight">weight</label>
+                        <select class="form-control" id="rsmriceweightview" name="rsmricew">
+                        <option value="1">1 KG</option>
+                        <option value="5">5 KG</option>
+                        <option value="10">10 KG</option>
+                        <option value="15">15 KG</option>
+                        <option value="20">20 KG</option>
+                        <option value="50">50 KG</option>
+                        <option value="60">60 KG</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="rsmriceweightview">View</button>
+                </form>
+            </div>
+            <div class="col">
+            
+            </div>
         </div>
-        <div class="col">
-            <form method="GET" action="ssf_rs_view.php">
-                <div class="form-group">
-                    <label for="rsmriceweight">weight</label>
-                    <select class="form-control" id="rsmriceweightview" name="rsmricew">
-                    <option value="1">1 KG</option>
-                    <option value="5">5 KG</option>
-                    <option value="10">10 KG</option>
-                    <option value="15">15 KG</option>
-                    <option value="20">20 KG</option>
-                    <option value="50">50 KG</option>
-                    <option value="60">60 KG</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary" name="rsmriceweightview">View</button>
-            </form>
-        </div>
-        <div class="col">
-        3
-        </div>
-    </div>
+    </form>
     <script>
         if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );

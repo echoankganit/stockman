@@ -24,55 +24,59 @@
     </div>
     <div class="container">
         <div class="row justify-content-md-center">
-            <div class="col content-col-3">
-                <div class="btn-group-vertical">
-                    <form action="ssf_rsm.php" method="GET">
-                        <button type="submit" name="rsm" class="btn btn-lg btn-danger">Rice Stock Management</button>
-                    </form>
-                    <form action="ssf_attendance.php" method="GET">
-                        <button type="submit" name="attendance" class="btn btn-lg btn-danger">Employee Attendance</button>
-                    </form>
-                    <form action="ssf_cashbook.php" method="GET">
-                        <button type="submit" name="cashbook" class="btn btn-lg btn-success">Cash Book</button>
-                    </form>
-                    <form action="ssf_bankbook.php" method="GET">
-                        <button type="submit" name="bankbook" class="btn btn-lg btn-success">Bank Book</button>
-                    </form>
-                    <form action="ssf_khushboo.php" method="GET">
-                        <button type="submit" name="khushboo" class="btn btn-lg btn-warning">Khushboo</button>
-                    </form>
-                    <form action="ssf_stitching.php" method="GET">
-                        <button type="submit" name="stitching" class="btn btn-lg btn-warning">Stitching</button>
-                    </form>
-                    <form action="ssf_majdoori.php" method="GET">
-                        <button type="submit" name="majdoori" class="btn btn-lg btn-warning">Majdoori</button>
-                    </form>
-                </div>
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $rsm[1]; ?>" class="btn btn-lg btn-danger form-control"><?php echo $rsm[0]; ?></a>
             </div>
-            <div class="col content-col-3">
-                <div class="btn-group-vertical">
-                    <form action="ssf_party.php" method="GET">
-                        <button type="submit" name="party" class="btn btn-lg text-white btn-dark">Party Registration</button>
-                    </form>
-                    <form action="ssf_employee.php" method="GET">
-                        <button type="submit" name="employee" class="btn btn-lg text-white btn-dark">Employee Registration</button>
-                    </form>
-                    <form action="ssf_contractor.php" method="GET">
-                        <button type="submit" name="contractor" class="btn btn-lg text-white btn-dark">Contractor Registration</button>
-                    </form>
-                    <form action="ssf_new_khush.php" method="GET">
-                        <button type="submit" name="khushboo" class="btn btn-lg text-white btn-dark">Add New Khushboo</button>
-                    </form>
-                    <form action="ssf_invoice_form.php" method="POST">
-                        <button type="submit" name="invoice" class="btn btn-lg text-black btn-light" disabled>Invoice (Generate PDF)</button>
-                    </form>
-                    <form action="ssf_view_party_cb_bb.php" method="POST">
-                        <button type="submit" name="viewpartycbbb" class="btn btn-lg btn-primary">View by Party Details</button>
-                    </form>
-                    <form action="ssf_view_contractor_bill.php" method="POST">
-                        <button type="submit" name="viewcontractorbill" class="btn btn-lg btn-primary">View Contractor Bills</button>
-                    </form>
-                </div>
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $partyreg[1]; ?>" class="btn btn-lg text-white btn-dark form-control"><?php echo $partyreg[0]; ?></a>
+            </div>
+        </div>
+        <div class="row justify-content-md-center mt-3">
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $empattendance[1]; ?>" class="btn btn-lg btn-danger form-control"><?php echo $empattendance[0]; ?></a>
+            </div>
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $empreg[1]; ?>" class="btn btn-lg text-white btn-dark form-control"><?php echo $empreg[0]; ?></a>
+            </div>
+        </div>
+        <div class="row justify-content-md-center mt-3">
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $cashbook[1]; ?>" class="btn btn-lg btn-success form-control"><?php echo $cashbook[0]; ?></a>
+            </div>
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $contreg[1]; ?>" class="btn btn-lg text-white btn-dark form-control"><?php echo $contreg[0]; ?></a>
+            </div>
+        </div>
+        <div class="row justify-content-md-center mt-3">
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $bankbook[1]; ?>" class="btn btn-lg btn-success form-control"><?php echo $bankbook[0]; ?></a>
+            </div>
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $nkreg[1]; ?>" class="btn btn-lg text-white btn-dark form-control"><?php echo $nkreg[0]; ?></a>
+            </div>
+        </div>
+        <div class="row justify-content-md-center mt-3">
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $khushboo[1]; ?>" class="btn btn-lg btn-warning form-control"><?php echo $khushboo[0]; ?></a>
+            </div>
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $viewpartycbbb[1]; ?>" class="btn btn-lg btn-primary form-control"><?php echo $viewpartycbbb[0]; ?></a>
+            </div>
+        </div>
+        <div class="row justify-content-md-center mt-3">
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $stitching[1]; ?>" class="btn btn-lg btn-warning form-control"><?php echo $stitching[0]; ?></a>
+            </div>
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $viewcontb[1]; ?>" class="btn btn-lg btn-primary form-control"><?php echo $viewcontb[0]; ?></a>
+            </div>
+        </div>
+        <div class="row justify-content-md-center mt-3">
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $majdoori[1]; ?>" class="btn btn-lg btn-warning form-control"><?php echo $majdoori[0]; ?></a>
+            </div>
+            <div class="col-4">
+              <a type="button" name="rsm" href="<?php echo $invoiceform[1]; ?>" class="btn btn-lg btn-primary form-control disabled"><?php echo $invoiceform[0].' (Generate PDF)'; ?></a>
             </div>
         </div>
     </div>

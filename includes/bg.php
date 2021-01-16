@@ -9,7 +9,7 @@
 	$nkreg = array("Add New Khushboo", "../ssf/ssf_new_khush.php", "New Khushboo View", "../ssf/ssf_new_khush_view.php");
 
 	$rsm = array("Rice Stock Management", "../ssf/ssf_rsm.php", "Rice Stock View", "../ssf/ssf_rsm_view.php");
-	$empattendance = array("Employee Attendance", "../ssf/ssf_attendance.php", "Attendance View", "../ssf/ssf_attendance_view.php");
+	$empattendance = array("Employee Attendance", "../ssf/ssf_attendance.php", "Attendance View", "../ssf/ssf_attendance_view.php", "Particular Employee Attendence View");
 	$cashbook = array("Cashbook", "../ssf/ssf_cashbook.php", "Cashbook View", "../ssf/ssf_cashbook_view.php");
 	$bankbook = array("Bankbook", "../ssf/ssf_bankbook.php", "Bankbook View", "../ssf/ssf_bankbook_view.php");
 
@@ -20,7 +20,9 @@
 	$logout = array("Logout", "../includes/logout.php");
 	$pcategories = array("Bank Accounts","Bank OCC A/c","Bank OD A/c", "Branch / Divisons", "Capital Account", "Cash-in-hand", "Creditors - Brokers", "Creditors - Others", "Creditors - Rent", "Current Assets", "Current Liabilities", "Deposits (Asset)", "Direct Expenses", "Direct Incomes", "Duties and Taxes", "Expenses (Direct)", "Expenses (Indirect)", "Expenses Payable", "Fixed Assets", "Government Dues", "Income (Direct)", "Income (Indirect)", "Indirect Expenses", "Indirect Incomes", "Investments", "Loans and Advances (Asset)", "Loans (Liability)", "Misc. Expenses (ASSET)", "Provisions", "Purchase Accounts", "Reserves and Surplus", "Retained Earnings", "Sales Accounts", "Secured Loans", "Stock-in-hand", "Sundry Creditors", "Sundry Debtors", "Suspense A/c", "Unsecured Loans");
 
-	$viewpartycbbb = array("Party Wise Cash Book View");
+	$viewpartycbbb = array("View Party Wise CB & BB", "../ssf/ssf_view_party_cb_bb.php");
+	$viewcontb = array("View Contractor Wise Bills", "../ssf/ssf_view_contractor_bill.php");
+	$invoiceform = array("Invoice Form", "../ssf/ssf_invoice_form.php", "Invoice View", "../ssf/ssf_invoice_view.php");
 ?>
 <style type="text/css">
 body {

@@ -88,7 +88,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="ssf_empatt_report.php" method="POST">
+                <form action="ssf_attendance_emp_report.php" method="GET">
                     <div class="modal-body">
                         <div class="form-row">
                             <div class="form-group col">
@@ -102,18 +102,18 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col">
-                                    <label for="iempattdate">Initial Date</label>
-                                    <input type="date" class="form-control" id="iempattdate" name="iempattdate" value="<?php echo date('Y-m-d') ?>">
+                                <label for="iempattdate">Initial Date</label>
+                                <input type="date" class="form-control" id="iempattdate" name="iempattdate" value="<?php echo date('Y-m-d') ?>">
                             </div>
                             <div class="form-group col">
-                                    <label for="fempattdate">Final Date</label>
-                                    <input type="date" class="form-control" id="fempattdate" name="fempattdate" value="<?php echo date('Y-m-d') ?>">
+                                <label for="fempattdate">Final Date</label>
+                                <input type="date" class="form-control" id="fempattdate" name="fempattdate" value="<?php echo date('Y-m-d') ?>">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="viewempatt" class="btn btn-success" disabled>View</button>
+                        <button type="submit" name="viewempatt" class="btn btn-success" formtarget="_blank">View</button>
                     </div>
                 </form>
             </div>
@@ -125,19 +125,19 @@
         </div>
         <div class="container">
             <form method="POST" action="">
-                <div class="row container bg-light py-3">
+                <!-- <div class="row container bg-light py-3">
                     <div class="col-lg-5 bg-info py-2">
                             <label for="attdate">Initial Date</label>
-                            <input type="date" class="form-control" id="attdate" name="attdate" value="<?php echo date('Y-m-d') ?>">
+                            <input type="date" class="form-control" id="attdate" name="attdate" value="<?php //echo date('Y-m-d') ?>">
                     </div>
                     <div class="col-lg-5 bg-info py-2">
                             <label for="attdate">Final Date</label>
-                            <input type="date" class="form-control" id="attdate" name="attdate" value="<?php echo date('Y-m-d') ?>">
+                            <input type="date" class="form-control" id="attdate" name="attdate" value="<?php //echo date('Y-m-d') ?>">
                     </div>
                     <div class="col-lg-2 py-2 mt-4 pl-5">
                         <a type="submit" class="btn btn-primary mr-3 disabled" name="attsubmit">Get Attendance</a>
                     </div>
-                </div>
+                </div> -->
                 <div class="py-3">
                 </div>
                 <table id="example" class="display" style="width:100%">

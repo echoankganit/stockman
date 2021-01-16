@@ -1,4 +1,5 @@
 <?php
+ob_start();
     include('../includes/session.php');
     include("../includes/allfunctions.php");
 
@@ -16,7 +17,7 @@
         $c=0;
         foreach($attrowdates as $value){
             if($value == $varattdate){
-                echo 'please choose another date. You have already entered attendance for this day. You will see the edit option soon.';
+                echo 'If you see this error then there are several reasons. Either you choose the date which is already filled. Or you have submit the attendance just.';
                 $blocknone = 'none'; 
                 break;
             }
@@ -49,7 +50,7 @@
 
         $result = mysqli_query($db,$sql) or die(mysqli_error($db));
 
-        $sql1 = "SELECT * FROM `ssf_att` ORDER BY `attempid` DESC LIMIT 1";
+        $sql1 = "SELECT * FROM `ssf_att` ORDER BY `attid` DESC LIMIT 1";
         $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
         $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
         if($result){
@@ -59,8 +60,36 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>';
+        header("refresh: 3; url = ../ssf/ssf_attendance.php");
         }
     }
+
+    if (isset($_POST['attdateholiday'])){
+        $holidaydate = $varattdate;
+        $holiday = "holiday";
+        $query = 'INSERT INTO `ssf_att` (`attdate`, `attempid`, `attempstatus`) VALUES ';
+        $query_parts = array();
+        for($x=0; $x<count($empids); $x++){
+            $query_parts[] = "('".$holidaydate."',". $empids[$x] . ", '" . $holiday . "')";
+        }
+        $sql = $query .= implode(',', $query_parts);
+
+        $result = mysqli_query($db,$sql) or die(mysqli_error($db));
+
+        $sql1 = "SELECT * FROM `ssf_att` ORDER BY `attid` DESC LIMIT 1";
+        $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
+        $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
+        if($result){
+            echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            (Attendace Unique ID: '.$row1['attid'].') added to Date: '.$row1['attdate'].'
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>';
+        header("refresh: 3; url = ../ssf/ssf_attendance.php");
+        }
+    }
+    ob_end_flush();
 ?>
 
 <!doctype html>
@@ -103,23 +132,26 @@
             <form method="GET" action="">
                 <div class="form-row">
                     <div class="form-group col-2">
-                        <label for="attdate">Attendance Date</label>
                         <input type="date" class="form-control" id="attdate" name="attdate" value="<?php echo $varattdate; ?>" required>
                     </div>
-                    <div class="form-group col-2">
+                    <div class="form-group col">
                         <button type="submit" class="btn btn-primary" name="attdatesubmit" value="datesubmit">Submit</button>
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="form-group col">
+                        <a class="btn btn-info" target="_blank" href="<?php echo $empattendance[3]; ?>" role="button"><?php echo $empattendance[2]; ?></a>
                     </div>
                 </div>
             </form>
             <form method="POST" action="">
                 <div style="display:<?php echo $blocknone; ?>">
+                    <button type="submit" class="btn btn-danger" name="attdateholiday" value="dateholiday">Holiday</button>
                     <table id="example" class="display" style="width:100%">
                         <thead>
                             <tr class="bg-dark text-white">
                                 <th>EMP. ID</th>
                                 <th>EMP. Name</th>
                                 <th>Present/Absent</th>
-                                <th>Attendance Report</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -146,7 +178,6 @@
                                         <label class="form-check-label" for="empattradio'.$row['empid'].'-'.$i[3].'">Half Day</label>
                                     </div>
                                     </td>
-                                    <td><a class="btn btn-dark disabled" href="#">Report</a></td>
                                     </tr>';
                                 }
                             ?>
@@ -156,7 +187,6 @@
                         <button type="submit" class="btn btn-primary mr-3" name="attsubmit">Submit</button>
                         <input type="button" class="btn btn-danger mr-3" value="Back" onclick="history.back(-1)" />
                         <button type="home" onclick='window.location="ssf_contents.php";return false;' class="btn btn-secondary mr-3">Home</button>
-                        <a class="btn btn-info" target="_blank" href="<?php echo $empattendance[3]; ?>" role="button"><?php echo $empattendance[2]; ?></a>
                     </div>
                 </div>             
             </form>

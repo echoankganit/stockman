@@ -138,19 +138,18 @@
             </form>
         </div>
     </div>
-    <div class="row bg-secondary">
+    <!-- <div class="row bg-secondary">
         <div class="col">
             <form method="GET" action="ssf_bankbook_view.php">
                 <div class="form-group">
                     <label for="bbmonthview">Date</label>
-                    <input type="date" class="form-control" id="bbmonthview" name="bbdate" value="<?php echo date('Y-m-d') ?>">
+                    <input type="date" class="form-control" id="bbmonthview" name="bbdate" value="<?php //echo date('Y-m-d') ?>">
                 </div>
                 <button type="submit" class="btn btn-primary" name="bbmonthview">View</button>
             </form>
         </div>
         <div class="col">
-            <label for="bbpartyview">Date</label><br>
-            <a class="btn btn-primary" href="ssf_party_bbb_view.php" role="button" id="bbpartyview">View by Party</a>
+        2
         </div>
         <div class="col">
         3
@@ -158,7 +157,7 @@
         <div class="col">
         4
         </div>
-    </div>
+    </div> -->
     <script>
         if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
