@@ -76,7 +76,7 @@
               <a type="button" name="rsm" href="<?php echo $majdoori[1]; ?>" class="btn btn-lg btn-warning form-control"><?php echo $majdoori[0]; ?></a>
             </div>
             <div class="col-4">
-              <a type="button" name="rsm" href="<?php echo $invoiceform[1]; ?>" class="btn btn-lg btn-primary form-control disabled"><?php echo $invoiceform[0].' (Generate PDF)'; ?></a>
+              <a type="button" name="rsm" href="<?php echo $invoiceform[1]; ?>" class="btn btn-lg btn-primary form-control"><?php echo $invoiceform[0].' (Generate PDF)'; ?></a>
             </div>
         </div>
     </div>

@@ -3,7 +3,7 @@
     include('../includes/session.php');
     if(isset($_POST['updatedata']))
     {   
-        $pid = mysqli_real_escape_string($db, $_POST['epid'];
+        $pid = mysqli_real_escape_string($db, $_POST['epid']);
         $pname = mysqli_real_escape_string($db, $_POST['epname']);
         $paddress = mysqli_real_escape_string($db, $_POST['epaddress']);
         $pgstin = mysqli_real_escape_string($db, $_POST['epgstin']);

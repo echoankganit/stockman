@@ -10,21 +10,23 @@
         $instate = mysqli_real_escape_string($db, $_POST['instate']);
         $incode = mysqli_real_escape_string($db, $_POST['incode']);
         $inbroker = mysqli_real_escape_string($db, $_POST['inbroker']);
-        $indesc = mysqli_real_escape_string($db, $_POST['indesc']);
-        $inaccode = mysqli_real_escape_string($db, $_POST['inaccode']);
-        $inbags = mysqli_real_escape_string($db, $_POST['inbags']);
-        $inweight = mysqli_real_escape_string($db, $_POST['inweight']);
-        $inrate = mysqli_real_escape_string($db, $_POST['inrate']);
-        if (isset($_POST['cbsubmit'])){
-            $sql = "INSERT INTO `ssf_invoice` (`indate`, `invehnum`, `inrecname`, `inrecaddress`, `instate`, `incode`, `inbroker`, `indesc`, `inaccode`, `inbags`, `inweight`, `inrate`) VALUES ('$indate', '$invehnum', '$inrecname', '$inrecaddress', '$instate', '$incode', '$inbroker', '$indesc', '$inaccode', '$inbags', '$inweight', '$inrate')";
+        //$sdoc=implode (", ",$_POST['sdoc']);}
+        $sno = mysqli_real_escape_string($db, implode(": ",$_POST['sno']));
+        $indesc = mysqli_real_escape_string($db, implode(": ",$_POST['indesc']));
+        $inaccode = mysqli_real_escape_string($db, implode(": ",$_POST['inaccode']));
+        $inbags = mysqli_real_escape_string($db, implode(": ",$_POST['inbags']));
+        $inweight = mysqli_real_escape_string($db, implode(": ",$_POST['inweight']));
+        $inrate = mysqli_real_escape_string($db, implode(": ",$_POST['inrate']));
+        if (isset($_POST['insubmit'])){
+            $sql = "INSERT INTO `ssf_invoice` (`indate`, `invehnum`, `inrecname`, `inrecaddress`, `instate`, `incode`, `inbroker`, `sno`, `indesc`, `inaccode`, `inbags`, `inweight`, `inrate`) VALUES ('$indate', '$invehnum', '$inrecname', '$inrecaddress', '$instate', '$incode', '$inbroker', '$sno', '$indesc', '$inaccode', '$inbags', '$inweight', '$inrate')";
             $result = mysqli_query($db,$sql) or die(mysqli_error($db));
 
-            $sql1 = "SELECT * FROM `ssf_cashbook` ORDER BY `cbid` DESC LIMIT 1";
+            $sql1 = "SELECT * FROM `ssf_invoice` ORDER BY `innum` DESC LIMIT 1";
             $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
             $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
             if($result){
                 echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                Cashbook Entry Unique ID: <strong>'.$row1['cbid'].'</strong>
+                Invoice Num: <strong>'.$row1['innum'].'</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -119,7 +121,7 @@
         <div class="d-flex justify-content-center">
             <p class="h2 bg-light px-4 py-2" style="border-radius: 25px"><?php echo strtoupper($invoiceform[0]); ?></p>
         </div>
-        <div class="container col-4">
+        <div class="container">
             <form method="POST" action="">
                 <div class="row">
                     <div class="col-6">
@@ -162,37 +164,68 @@
                     <label for="inbroker">Broker</label>
                     <input type="text" class="form-control" id="inbroker" name="inbroker">
                 </div>
-                <div class="form-group">
-                    <label for="indesc">Product Description</label>
-                    <input type="text" class="form-control" id="indesc" name="indesc">
-                </div>
-                <div class="row">
-                    <div class="form-group col-6">
+                <!-- <div class="form-group bg-danger text-white">
+                    <label for="numofprod">Number of Products?</label>
+                    <input type="text" class="form-control" id="numofprod" name="numofprod">
+                </div> -->
+                <?php 
+                    for($counter = 1; $counter <= 5; $counter++){
+                        echo'<div class="form-row">
+                    <div class="form-group col-1">
+                        <label for="sno">S. No.</label>
+                        <input type="text" class="form-control" id="sno" name="sno[]">
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="indesc[]">Product Description '.$counter.'</label>
+                        <input type="text" class="form-control" id="indesc" name="indesc[]">
+                    </div>
+                    <div class="form-group col-2">
+                        <label for="inaccode[]">AC Code</label>
+                        <input type="number" class="form-control" id="inaccode" step="01" min="01" name="inaccode[]">
+                    </div>
+                    <div class="form-group col-2">
+                        <label for="inbags[]">Bags</label>
+                        <input type="number" class="form-control" id="inbags" step="01" min="01" name="inbags[]">
+                    </div>
+                    <div class="form-group col-2">
+                        <label for="inweight[]">Weight (KGs)</label>
+                        <input type="number" class="form-control" id="inweight" step="0.001" min="1" name="inweight[]">
+                    </div>
+                    <div class="form-group col-2">
+                        <label for="inrate[]">Rate</label>
+                        <input type="number" class="form-control" id="inrate" step="0.01" min="1" name="inrate[]">
+                    </div>
+                </div>';
+                    }
+                ?>
+                <!-- <div class="form-row">
+                    <div class="form-group col-2.1">
+                        <label for="indesc">Product Description</label>
+                        <input type="text" class="form-control" id="indesc" name="indesc">
+                    </div>
+                    <div class="form-group col-2.1">
                         <label for="inaccode">AC Code</label>
                         <input type="number" class="form-control" id="inaccode" step="01" min="01" name="inaccode">
                     </div>
-                
-                    <div class="form-group col-6">
+                    <div class="form-group col-2.1">
                         <label for="inbags">Bags</label>
                         <input type="number" class="form-control" id="inbags" step="01" min="01" name="inbags">
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-6">
-                        <label for="inweight">Weight (Quintals)</label>
+                    <div class="form-group col-2.1">
+                        <label for="inweight">Weight (KGs)</label>
                         <input type="number" class="form-control" id="inweight" step="0.001" min="1" name="inweight">
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-2.1">
                         <label for="inrate">Rate</label>
                         <input type="number" class="form-control" id="inrate" step="0.01" min="1" name="inrate">
                     </div>
-                </div>
-                <INPUT type="button" value="Add" onclick="add()"/>
+                </div> -->
+                <INPUT type="button" value="Add" disabled onclick="add()"/>
                 <div class="form-group" id="fooBar">
                 
                 </div>
                 <div class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-primary mr-3" name="cbsubmit">Submit</button>
+                    <button type="submit" class="btn btn-primary mr-3" name="insubmit">Submit</button>
                     <input type="button" class="btn btn-danger mr-3" value="Back" onclick="history.back(-1)" />
                     <button type="home" onclick='window.location="ssf_contents.php";return false;' class="btn btn-secondary mr-3">Home</button>
                     <a class="btn btn-info" target="_blank" href="<?php echo $invoiceform[3]; ?>" role="button"><?php echo $invoiceform[2]; ?></a>

@@ -1,6 +1,6 @@
 <?php
     include('../includes/session.php');
-    $sql1 = "SELECT * FROM `ssf_new_khushboo`";
+    $sql1 = "SELECT * FROM `ssf_invoice`";
 
     $result1 = mysqli_query($db,$sql1) or die(mysqli_error($db));
     $row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC);
@@ -66,108 +66,76 @@
             </div>
         </div>
     </div>
-
-
-    <!-- EDIT POP UP FORM (Bootstrap MODAL) -->
-    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Print POP UP FORM (Bootstrap MODAL) -->
+    <div class="modal fade" id="printmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Khushboo Details</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Print Invoice Data </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
-                <form action="ssf_new_khush_edit.php" method="POST">
+                <form action="../modules/cashbook_invoice.php" method="GET">
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="enkid">khushboo ID</label>
-                            <input type="text" class="form-control" id="enkid" name="enkid" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="enkname">Khushboo Name</label>
-                            <input type="text" class="form-control" id="enkname" name="enkname" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="enkquality">Khushboo Quality</label>
-                            <input type="text" class="form-control" id="enkquality" name="enkquality" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="updatedata" class="btn btn-primary">Update Data</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-    
-     <!-- DELETE POP UP FORM (Bootstrap MODAL) -->
-     <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Delete khushboo Data </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form action="ssf_new_khush_delete.php" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" name="dnkid" id="dnkid">
-                        <h4> Do you want to Delete this Data ??</h4>
+                        <input type="hidden" name="pinnum" id="pinnum">
+                        <h4> Do you want to Print this Data ??</h4>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
-                        <button type="submit" name="deletedata" class="btn btn-danger"> Yes !! Delete it. </button>
+                        <button type="submit" name="pinprint" class="btn btn-danger"> Yes </button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
-
 
     <!-- /////////////////////////// -->
     <div class="d-flex justify-content-center mb-3">
         <p class="h3 bg-light px-5 py-2" style="border-radius: 25px"><?php echo strtoupper($invoiceform[2]); ?></p>
     </div>
     <div class="container">
-    <table id="example" class="table table-striped table-bordered hover display" style="width:100%">
+        <table id="example" class="table table-striped table-bordered hover display" style="width:100%">
             <thead>
                 <tr class="bg-dark text-white">
-                    <th>Khushboo ID</th>
-                    <th>Khushboo Name</th>
-                    <th>Khushboo Quality</th>
+                    <th>Invoice No.</th>
+                    <th>Date</th>
+                    <th>Rate</th>
+                    <th>Broker</th>
                     <th>Operation</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th>Khushboo ID</th>
-                    <th>Khushboo Name</th>
-                    <th>Khushboo Quality</th>
+                    <th>Invoice No.</th>
+                    <th>Date</th>
+                    <th>Rate</th>
                 </tr>
             </tfoot>
             <tbody>
-                <?php 
+                <?php
+                //$a = array("a", "b", "c");
                     foreach($result1 as $row){
+                        //echo $a = $row['inrate'];
+                        //array() = $row['inrate'];
+                        $arrayrate = explode(": ",$row['inrate']);
                         echo'<tr class="bg-light">
-                        <td>'.$row['nkid'].'</td>
-                        <td>'.$row['nkname'].'</td>
-                        <td>'.$row['nkquality'].'</td>
-                        <td><i class="far fa-eye viewbtn text-success pl-5"></i>
-                        <i class="far fa-edit editbtn text-primary px-3"></i>
-                        <i class="far fa-trash-alt text-danger deletebtn" id="deletebtn"></i>
+                        <td>'.$row['innum'].'</td>
+                        <td>'.$row['indate'].'</td>
+                        <td>'.$arrayrate[0]." ".$arrayrate[1]." ".$arrayrate[2]." ".$arrayrate[3]." ".$arrayrate[4].'</td>
+                        <td>'.$row['inbroker'].'</td>
+                        <td><a type="button" name="inview" class="btn btn-primary viewbtn mr-4">View</a>
+                        <button name="inprint" class="btn printbtn btn-dark">Print</button></td>
                         </tr>';
-                 }
+                        /* <td><i class="far fa-eye viewbtn text-success pl-5"></i>
+                        <i class="far fa-edit editbtn text-primary px-3"></i>
+                        <i class="far fa-trash-alt text-danger deletebtn" id="deletebtn"></i></td> */
+                        //$i++;
+                     }
                 ?>
-                </tbody>
+            </tbody>
         </table>
     </div>
     <script>
@@ -217,6 +185,21 @@
         .appendTo( '#example_wrapper .col-md-6:eq(0)' );
     } );
     </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example').on('click', '.printbtn', function () {
+                $('#printmodal').modal('show');
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+                console.log(data);
+                $('#pinnum').val(data[0]);
+            });
+        });
+    </script>
+
     <script>
         $(document).ready(function () {
             $('#example').on('click', '.viewbtn', function () {
@@ -226,50 +209,19 @@
                     return $(this).text();
                 }).get();
                 console.log(data);
-                var vnkid=data[0];
+                var vinnum=data[0];
                 //$('#eempid').val(data[0]);
                 $.ajax({ //create an ajax request to display.php
                     method: "POST",
-                    url: "../ssf/ssf_new_khush_display.php",
-                    data: {vnkid:vnkid}, //expect html to be returned                
+                    url: "../ssf/ssf_invoice_display.php",
+                    data: {vinnum:vinnum}, //expect html to be returned                
                     success: function (data) {
-                        $("#viewnk").html(data);
+                        $("#viewin").html(data);
                         $('#viewmodal').modal('show');
                         //alert(response);
                     }
                 });
 
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('#example').on('click', '.deletebtn', function () {
-                $('#deletemodal').modal('show');
-                $tr = $(this).closest('tr');
-                var data = $tr.children("td").map(function () {
-                    return $(this).text();
-                }).get();
-                console.log(data);
-                $('#dnkid').val(data[0]);
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-
-            $('#example').on('click', '.editbtn', function () {
-                $('#editmodal').modal('show');
-                $tr = $(this).closest('tr');
-                var data = $tr.children("td").map(function () {
-                    return $(this).text();
-                }).get();
-                console.log(data);
-                $('#enkid').val(data[0]);
-                $('#enkname').val(data[1]);
-                $('#enkquality').val(data[2]);
             });
         });
     </script>
